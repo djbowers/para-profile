@@ -1,3 +1,5 @@
+import Component from '../para-profile'
+
 export default function Page() {
-  return <div>Hello world</div>
+  return <Component />
 }
