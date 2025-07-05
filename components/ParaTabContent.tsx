@@ -5,19 +5,7 @@ import { TabsContent } from '@/components/ui/tabs'
 import { Badge } from '@/components/ui/badge'
 import { ProgressCard } from '@/components/ProgressCard'
 import { AddNewItemDialog } from '@/components/AddNewItemDialog'
-import { ProgressItem } from '@/data/exampleData'
-import {
-  Zap,
-  Target,
-  Star,
-  Shield,
-  Heart,
-  Trophy,
-  MapPin,
-  Brain,
-  Sword,
-  Archive,
-} from 'lucide-react'
+import type { ProgressItem } from '@/types/progress'
 
 interface ParaTabContentProps {
   value: string
@@ -27,26 +15,19 @@ interface ParaTabContentProps {
   iconColor: string
   borderColor: string
   items: ProgressItem[]
+  onItemsChange: (items: ProgressItem[]) => void
+  onAdd: (newItem: Omit<ProgressItem, 'icon'>) => void
   draggedItem: {
     item: ProgressItem
     type: string
     index: number
   } | null
   dragOverType: string | null
-  onDragStart: (
-    e: React.DragEvent<HTMLDivElement>,
-    item: ProgressItem,
-    type: string,
-    index: number
+  onDragStateChange: (
+    draggedItem: { item: ProgressItem; type: string; index: number } | null,
+    dragOverType: string | null
   ) => void
-  onDragEnd: (e: React.DragEvent<HTMLDivElement>) => void
-  onDragOver: (e: React.DragEvent, type: string) => void
-  onDragLeave: (e: React.DragEvent) => void
-  onDrop: (e: React.DragEvent, targetType: string, targetIndex?: number) => void
-  onUpdate: (type: string, index: number, updatedItem: ProgressItem) => void
-  onDelete: (type: string, index: number) => void
-  onMove: (fromType: string, fromIndex: number, toType: string) => void
-  onAdd: (type: string, newItem: Omit<ProgressItem, 'icon'>) => void
+  onMoveItem: (fromType: string, fromIndex: number, toType: string) => void
 }
 
 export function ParaTabContent({
@@ -57,48 +38,72 @@ export function ParaTabContent({
   iconColor,
   borderColor,
   items,
+  onItemsChange,
+  onAdd,
   draggedItem,
   dragOverType,
-  onDragStart,
-  onDragEnd,
-  onDragOver,
-  onDragLeave,
-  onDrop,
-  onUpdate,
-  onDelete,
-  onMove,
-  onAdd,
+  onDragStateChange,
+  onMoveItem,
 }: ParaTabContentProps) {
-  const getIconByCategory = (category: string) => {
-    const iconMap: { [key: string]: React.ReactNode } = {
-      Development: <Zap className="w-4 h-4" />,
-      Marketing: <Target className="w-4 h-4" />,
-      Design: <Star className="w-4 h-4" />,
-      Leadership: <Shield className="w-4 h-4" />,
-      Personal: <Heart className="w-4 h-4" />,
-      Finance: <Trophy className="w-4 h-4" />,
-      Career: <MapPin className="w-4 h-4" />,
-      Education: <Brain className="w-4 h-4" />,
-      Technology: <Zap className="w-4 h-4" />,
-      Creative: <Star className="w-4 h-4" />,
-      Management: <Sword className="w-4 h-4" />,
-      Completed: <Archive className="w-4 h-4" />,
+  const updateItem = (index: number, updatedItem: ProgressItem) => {
+    const newItems = [...items]
+    newItems[index] = updatedItem
+    onItemsChange(newItems)
+  }
+
+  const deleteItem = (index: number) => {
+    const newItems = items.filter((_, i) => i !== index)
+    onItemsChange(newItems)
+  }
+
+  const handleDragStart = (
+    e: React.DragEvent<HTMLDivElement>,
+    item: ProgressItem,
+    index: number
+  ) => {
+    onDragStateChange({ item, type: value, index }, null)
+    e.dataTransfer.effectAllowed = 'move'
+    e.dataTransfer.setData('text/html', e.currentTarget.outerHTML)
+    e.currentTarget.style.opacity = '0.5'
+  }
+
+  const handleDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
+    e.currentTarget.style.opacity = '1'
+    onDragStateChange(null, null)
+  }
+
+  const handleDragOver = (e: React.DragEvent) => {
+    e.preventDefault()
+    e.dataTransfer.dropEffect = 'move'
+    onDragStateChange(null, value)
+  }
+
+  const handleDragLeave = (e: React.DragEvent) => {
+    if (!e.currentTarget.contains(e.relatedTarget as Node)) {
+      onDragStateChange(null, null)
     }
-    return iconMap[category] || <Star className="w-4 h-4" />
   }
 
-  const getProgressColor = (progress: number) => {
-    if (progress >= 80) return 'bg-green-500'
-    if (progress >= 60) return 'bg-yellow-500'
-    if (progress >= 40) return 'bg-orange-500'
-    return 'bg-red-500'
-  }
+  const handleDrop = (e: React.DragEvent, targetIndex?: number) => {
+    e.preventDefault()
+    if (!draggedItem) return
 
-  const getLevelColor = (level: number) => {
-    if (level >= 10) return 'text-purple-400'
-    if (level >= 7) return 'text-blue-400'
-    if (level >= 4) return 'text-green-400'
-    return 'text-gray-400'
+    const { type: sourceType, index: sourceIndex } = draggedItem
+
+    if (sourceType === value) {
+      // Reordering within same group
+      if (targetIndex !== undefined && sourceIndex !== targetIndex) {
+        const newItems = [...items]
+        const [movedItem] = newItems.splice(sourceIndex, 1)
+        newItems.splice(targetIndex, 0, movedItem)
+        onItemsChange(newItems)
+      }
+    } else {
+      // Moving from another group - use parent's moveItem function
+      onMoveItem(sourceType, sourceIndex, value)
+    }
+
+    onDragStateChange(null, null)
   }
 
   return (
@@ -111,15 +116,15 @@ export function ParaTabContent({
             {description}
           </Badge>
         </div>
-        <AddNewItemDialog type={value} onAdd={onAdd} />
+        <AddNewItemDialog type={value} onAdd={(type, newItem) => onAdd(newItem)} />
       </div>
       <div
         className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 min-h-[200px] p-4 rounded-lg border-2 border-dashed transition-colors ${
           dragOverType === value ? `${borderColor} bg-opacity-10` : 'border-slate-700'
         }`}
-        onDragOver={e => onDragOver(e, value)}
-        onDragLeave={onDragLeave}
-        onDrop={e => onDrop(e, value)}
+        onDragOver={handleDragOver}
+        onDragLeave={handleDragLeave}
+        onDrop={handleDrop}
       >
         {items.length === 0 && (
           <div className="col-span-full flex items-center justify-center text-slate-400 text-center py-8">
@@ -137,16 +142,13 @@ export function ParaTabContent({
             type={value}
             index={index}
             draggedItem={draggedItem}
-            onDragStart={onDragStart}
-            onDragEnd={onDragEnd}
-            onDragOver={onDragOver}
-            onDrop={onDrop}
-            onUpdate={onUpdate}
-            onDelete={onDelete}
-            onMove={onMove}
-            getIconByCategory={getIconByCategory}
-            getLevelColor={getLevelColor}
-            getProgressColor={getProgressColor}
+            onDragStart={(e, item, _, index) => handleDragStart(e, item, index)}
+            onDragEnd={handleDragEnd}
+            onDragOver={handleDragOver}
+            onDrop={(e, _, targetIndex) => handleDrop(e, targetIndex)}
+            onUpdate={(_, index, updatedItem) => updateItem(index, updatedItem)}
+            onDelete={(_, index) => deleteItem(index)}
+            onMove={() => {}} // This would need parent coordination for cross-group moves
           />
         ))}
       </div>

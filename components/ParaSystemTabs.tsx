@@ -1,11 +1,11 @@
 'use client'
 
-import type React from 'react'
 import { useState } from 'react'
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ParaTabContent } from '@/components/ParaTabContent'
-import { ProgressItem } from '@/data/exampleData'
-import { Target, MapPin, BookOpen, Archive } from 'lucide-react'
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import type { ProgressItem } from '@/types/progress'
+import { Archive, BookOpen, MapPin, Target } from 'lucide-react'
+import { getDataByType, setDataByType } from '@/utils'
 
 interface ParaSystemTabsProps {
   selectedTab: string
@@ -39,129 +39,54 @@ export function ParaSystemTabs({
   } | null>(null)
   const [dragOverType, setDragOverType] = useState<string | null>(null)
 
-  const getDataByType = (type: string) => {
-    switch (type) {
-      case 'projects':
-        return projects
-      case 'areas':
-        return areas
-      case 'resources':
-        return resources
-      case 'archive':
-        return archived
-      default:
-        return []
-    }
-  }
-
-  const setDataByType = (type: string, data: ProgressItem[]) => {
-    switch (type) {
-      case 'projects':
-        onProjectsChange(data)
-        break
-      case 'areas':
-        onAreasChange(data)
-        break
-      case 'resources':
-        onResourcesChange(data)
-        break
-      case 'archive':
-        onArchivedChange(data)
-        break
-    }
-  }
-
-  const updateItem = (type: string, index: number, updatedItem: ProgressItem) => {
-    const currentData = getDataByType(type)
-    const newData = [...currentData]
-    newData[index] = updatedItem
-    setDataByType(type, newData)
-  }
-
-  const deleteItem = (type: string, index: number) => {
-    const currentData = getDataByType(type)
-    const newData = currentData.filter((_, i) => i !== index)
-    setDataByType(type, newData)
-  }
-
   const addNewItem = (type: string, newItem: Omit<ProgressItem, 'icon'>) => {
-    const currentData = getDataByType(type)
-    setDataByType(type, [...currentData, newItem as ProgressItem])
+    const currentData = getDataByType(type, projects, areas, resources, archived)
+    setDataByType(
+      type,
+      [...currentData, newItem as ProgressItem],
+      onProjectsChange,
+      onAreasChange,
+      onResourcesChange,
+      onArchivedChange
+    )
   }
 
   const moveItemBetweenGroups = (fromType: string, fromIndex: number, toType: string) => {
     if (fromType === toType) return
 
-    const fromData = getDataByType(fromType)
-    const toData = getDataByType(toType)
+    const fromData = getDataByType(fromType, projects, areas, resources, archived)
+    const toData = getDataByType(toType, projects, areas, resources, archived)
     const itemToMove = fromData[fromIndex]
 
     // Remove from source
     const newFromData = fromData.filter((_, i) => i !== fromIndex)
-    setDataByType(fromType, newFromData)
+    setDataByType(
+      fromType,
+      newFromData,
+      onProjectsChange,
+      onAreasChange,
+      onResourcesChange,
+      onArchivedChange
+    )
 
     // Add to destination
     const newToData = [...toData, itemToMove]
-    setDataByType(toType, newToData)
+    setDataByType(
+      toType,
+      newToData,
+      onProjectsChange,
+      onAreasChange,
+      onResourcesChange,
+      onArchivedChange
+    )
   }
 
-  const reorderItems = (type: string, fromIndex: number, toIndex: number) => {
-    const data = getDataByType(type)
-    const newData = [...data]
-    const [movedItem] = newData.splice(fromIndex, 1)
-    newData.splice(toIndex, 0, movedItem)
-    setDataByType(type, newData)
-  }
-
-  const handleDragStart = (
-    e: React.DragEvent<HTMLDivElement>,
-    item: ProgressItem,
-    type: string,
-    index: number
+  const handleDragStateChange = (
+    newDraggedItem: { item: ProgressItem; type: string; index: number } | null,
+    newDragOverType: string | null
   ) => {
-    setDraggedItem({ item, type, index })
-    e.dataTransfer.effectAllowed = 'move'
-    e.dataTransfer.setData('text/html', e.currentTarget.outerHTML)
-    e.currentTarget.style.opacity = '0.5'
-  }
-
-  const handleDragEnd = (e: React.DragEvent<HTMLDivElement>) => {
-    e.currentTarget.style.opacity = '1'
-    setDraggedItem(null)
-    setDragOverType(null)
-  }
-
-  const handleDragOver = (e: React.DragEvent, type: string) => {
-    e.preventDefault()
-    e.dataTransfer.dropEffect = 'move'
-    setDragOverType(type)
-  }
-
-  const handleDragLeave = (e: React.DragEvent) => {
-    // Only clear if we're leaving the drop zone entirely
-    if (!e.currentTarget.contains(e.relatedTarget as Node)) {
-      setDragOverType(null)
-    }
-  }
-
-  const handleDrop = (e: React.DragEvent, targetType: string, targetIndex?: number) => {
-    e.preventDefault()
-    if (!draggedItem) return
-
-    const { type: sourceType, index: sourceIndex } = draggedItem
-
-    if (sourceType === targetType) {
-      // Reordering within same group
-      if (targetIndex !== undefined && sourceIndex !== targetIndex) {
-        reorderItems(sourceType, sourceIndex, targetIndex)
-      }
-    } else {
-      // Moving between groups
-      moveItemBetweenGroups(sourceType, sourceIndex, targetType)
-    }
-
-    setDraggedItem(null)
-    setDragOverType(null)
+    setDraggedItem(newDraggedItem)
+    setDragOverType(newDragOverType)
   }
 
   return (
@@ -169,28 +94,28 @@ export function ParaSystemTabs({
       <TabsList className="grid w-full grid-cols-4 bg-slate-800 border border-slate-700">
         <TabsTrigger
           value="projects"
-          className="flex items-center gap-2 data-[state=active]:bg-slate-700"
+          className="flex items-center gap-2 text-slate-300 data-[state=active]:bg-slate-700 data-[state=active]:text-white cursor-pointer hover:bg-green-700 hover:text-white transition-colors"
         >
           <Target className="w-4 h-4" />
           Projects
         </TabsTrigger>
         <TabsTrigger
           value="areas"
-          className="flex items-center gap-2 data-[state=active]:bg-slate-700"
+          className="flex items-center gap-2 text-slate-300 data-[state=active]:bg-slate-700 data-[state=active]:text-white cursor-pointer hover:bg-blue-700 hover:text-white transition-colors"
         >
           <MapPin className="w-4 h-4" />
           Areas
         </TabsTrigger>
         <TabsTrigger
           value="resources"
-          className="flex items-center gap-2 data-[state=active]:bg-slate-700"
+          className="flex items-center gap-2 text-slate-300 data-[state=active]:bg-slate-700 data-[state=active]:text-white cursor-pointer hover:bg-purple-700 hover:text-white transition-colors"
         >
           <BookOpen className="w-4 h-4" />
           Resources
         </TabsTrigger>
         <TabsTrigger
           value="archive"
-          className="flex items-center gap-2 data-[state=active]:bg-slate-700"
+          className="flex items-center gap-2 text-slate-300 data-[state=active]:bg-slate-700 data-[state=active]:text-white cursor-pointer hover:bg-gray-700 hover:text-white transition-colors"
         >
           <Archive className="w-4 h-4" />
           Archive
@@ -205,17 +130,12 @@ export function ParaSystemTabs({
         iconColor="text-green-400"
         borderColor="border-green-400 bg-green-400"
         items={projects}
+        onItemsChange={onProjectsChange}
+        onAdd={newItem => addNewItem('projects', newItem)}
         draggedItem={draggedItem}
         dragOverType={dragOverType}
-        onDragStart={handleDragStart}
-        onDragEnd={handleDragEnd}
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
-        onDrop={handleDrop}
-        onUpdate={updateItem}
-        onDelete={deleteItem}
-        onMove={moveItemBetweenGroups}
-        onAdd={addNewItem}
+        onDragStateChange={handleDragStateChange}
+        onMoveItem={moveItemBetweenGroups}
       />
 
       <ParaTabContent
@@ -226,17 +146,12 @@ export function ParaSystemTabs({
         iconColor="text-blue-400"
         borderColor="border-blue-400 bg-blue-400"
         items={areas}
+        onItemsChange={onAreasChange}
+        onAdd={newItem => addNewItem('areas', newItem)}
         draggedItem={draggedItem}
         dragOverType={dragOverType}
-        onDragStart={handleDragStart}
-        onDragEnd={handleDragEnd}
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
-        onDrop={handleDrop}
-        onUpdate={updateItem}
-        onDelete={deleteItem}
-        onMove={moveItemBetweenGroups}
-        onAdd={addNewItem}
+        onDragStateChange={handleDragStateChange}
+        onMoveItem={moveItemBetweenGroups}
       />
 
       <ParaTabContent
@@ -247,17 +162,12 @@ export function ParaSystemTabs({
         iconColor="text-purple-400"
         borderColor="border-purple-400 bg-purple-400"
         items={resources}
+        onItemsChange={onResourcesChange}
+        onAdd={newItem => addNewItem('resources', newItem)}
         draggedItem={draggedItem}
         dragOverType={dragOverType}
-        onDragStart={handleDragStart}
-        onDragEnd={handleDragEnd}
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
-        onDrop={handleDrop}
-        onUpdate={updateItem}
-        onDelete={deleteItem}
-        onMove={moveItemBetweenGroups}
-        onAdd={addNewItem}
+        onDragStateChange={handleDragStateChange}
+        onMoveItem={moveItemBetweenGroups}
       />
 
       <ParaTabContent
@@ -268,17 +178,12 @@ export function ParaSystemTabs({
         iconColor="text-gray-400"
         borderColor="border-gray-400 bg-gray-400"
         items={archived}
+        onItemsChange={onArchivedChange}
+        onAdd={newItem => addNewItem('archive', newItem)}
         draggedItem={draggedItem}
         dragOverType={dragOverType}
-        onDragStart={handleDragStart}
-        onDragEnd={handleDragEnd}
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
-        onDrop={handleDrop}
-        onUpdate={updateItem}
-        onDelete={deleteItem}
-        onMove={moveItemBetweenGroups}
-        onAdd={addNewItem}
+        onDragStateChange={handleDragStateChange}
+        onMoveItem={moveItemBetweenGroups}
       />
     </Tabs>
   )

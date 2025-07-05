@@ -21,7 +21,7 @@ import {
 } from '@/components/ui/select'
 import { Plus } from 'lucide-react'
 
-import { ProgressItem } from '@/data/exampleData'
+import type { ProgressItem } from '@/types/progress'
 
 interface AddNewItemDialogProps {
   type: string

@@ -1,13 +1,18 @@
 'use client'
 
-import type React from 'react'
-import { useState } from 'react'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Progress } from '@/components/ui/progress'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Progress } from '@/components/ui/progress'
 import {
   Select,
   SelectContent,
@@ -16,15 +21,22 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-  DropdownMenuSeparator,
-} from '@/components/ui/dropdown-menu'
-import { Edit, Trash2, Save, X, MoreVertical, ArrowRight } from 'lucide-react'
+  Archive,
+  ArrowRight,
+  BookOpen,
+  Edit,
+  MapPin,
+  MoreVertical,
+  Save,
+  Target,
+  Trash2,
+  X,
+} from 'lucide-react'
+import type React from 'react'
+import { useState } from 'react'
 
-import { ProgressItem } from '@/data/exampleData'
+import type { ProgressItem } from '@/types/progress'
+import { getIconByCategory, getLevelColor, getProgressColor } from '@/utils'
 
 interface ProgressCardProps {
   item: ProgressItem
@@ -47,9 +59,6 @@ interface ProgressCardProps {
   onUpdate: (type: string, index: number, updatedItem: ProgressItem) => void
   onDelete: (type: string, index: number) => void
   onMove: (fromType: string, fromIndex: number, toType: string) => void
-  getIconByCategory: (category: string) => React.ReactNode
-  getLevelColor: (level: number) => string
-  getProgressColor: (progress: number) => string
 }
 
 export function ProgressCard({
@@ -64,9 +73,6 @@ export function ProgressCard({
   onUpdate,
   onDelete,
   onMove,
-  getIconByCategory,
-  getLevelColor,
-  getProgressColor,
 }: ProgressCardProps) {
   const [isEditing, setIsEditing] = useState(false)
   const [editForm, setEditForm] = useState({
@@ -351,6 +357,3 @@ export function ProgressCard({
     </Card>
   )
 }
-
-// Import the missing icons
-import { Target, MapPin, BookOpen, Archive } from 'lucide-react'

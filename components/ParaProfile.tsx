@@ -6,8 +6,8 @@ import { useState } from 'react'
 
 import { CharacterProfileHeader } from '@/components/CharacterProfileHeader'
 import { ParaSystemTabs } from '@/components/ParaSystemTabs'
+import type { ProgressItem } from '@/types/progress'
 import {
-  ProgressItem,
   initialProjects,
   initialAreas,
   initialResources,

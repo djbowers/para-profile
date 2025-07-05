@@ -11,16 +11,7 @@ import {
   Heart,
   Brain,
 } from 'lucide-react'
-
-export interface ProgressItem {
-  name: string
-  progress: number
-  level: number
-  xp: number
-  maxXp: number
-  category: string
-  icon?: React.ReactNode
-}
+import type { ProgressItem } from '../types/progress'
 
 export const initialProjects: ProgressItem[] = [
   {
