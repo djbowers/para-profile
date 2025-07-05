@@ -1,5 +1,5 @@
-import Component from '../para-profile'
+import { ParaProfile } from '@/components/ParaProfile'
 
 export default function Page() {
-  return <Component />
+  return <ParaProfile />
 }

@@ -14,7 +14,7 @@ import {
   initialArchived,
 } from '@/data/exampleData'
 
-export default function Component() {
+export function ParaProfile() {
   const [selectedTab, setSelectedTab] = useState('projects')
 
   const [projects, setProjects] = useState<ProgressItem[]>(initialProjects)
