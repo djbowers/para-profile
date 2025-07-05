@@ -7,14 +7,20 @@ import { useState } from 'react'
 import { CharacterProfileHeader } from '@/components/CharacterProfileHeader'
 import { ParaSystemTabs } from '@/components/ParaSystemTabs'
 import type { ProgressItem } from '@/types/progress'
-import {
-  initialProjects,
-  initialAreas,
-  initialResources,
-  initialArchived,
-} from '@/data/exampleData'
 
-export function ParaProfile() {
+interface ParaProfileProps {
+  initialProjects?: ProgressItem[]
+  initialAreas?: ProgressItem[]
+  initialResources?: ProgressItem[]
+  initialArchived?: ProgressItem[]
+}
+
+export function ParaProfile({
+  initialProjects = [],
+  initialAreas = [],
+  initialResources = [],
+  initialArchived = [],
+}: ParaProfileProps) {
   const [selectedTab, setSelectedTab] = useState('projects')
 
   const [projects, setProjects] = useState<ProgressItem[]>(initialProjects)
