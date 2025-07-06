@@ -28,6 +28,13 @@ const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
   Brain,
 };
 
+// Helper function to check if Supabase client is available
+const checkSupabaseClient = () => {
+  if (!supabase) {
+    throw new Error('Supabase client is not available');
+  }
+};
+
 // Convert database row to ProgressItem
 export function dbRowToProgressItem(row: {
   id: string;
@@ -78,7 +85,9 @@ export async function getProgressItems(
   userId: string,
   type: 'project' | 'area' | 'resource' | 'archived'
 ) {
-  const { data, error } = await supabase
+  checkSupabaseClient();
+
+  const { data, error } = await supabase!
     .from('progress_items')
     .select('*')
     .eq('user_id', userId)
@@ -98,7 +107,9 @@ export async function createProgressItem(
   userId: string,
   type: 'project' | 'area' | 'resource' | 'archived'
 ) {
-  const { data, error } = await supabase
+  checkSupabaseClient();
+
+  const { data, error } = await supabase!
     .from('progress_items')
     .insert(progressItemToDb(item, userId, type))
     .select()
@@ -116,7 +127,9 @@ export async function updateProgressItem(
   id: string,
   updates: Partial<Omit<ProgressItem, 'icon' | 'id'>>
 ) {
-  const { data, error } = await supabase
+  checkSupabaseClient();
+
+  const { data, error } = await supabase!
     .from('progress_items')
     .update({
       ...updates,
@@ -136,7 +149,12 @@ export async function updateProgressItem(
 }
 
 export async function deleteProgressItem(id: string) {
-  const { error } = await supabase.from('progress_items').delete().eq('id', id);
+  checkSupabaseClient();
+
+  const { error } = await supabase!
+    .from('progress_items')
+    .delete()
+    .eq('id', id);
 
   if (error) {
     console.error('Error deleting progress item:', error);
@@ -148,7 +166,9 @@ export async function moveProgressItem(
   id: string,
   newType: 'project' | 'area' | 'resource' | 'archived'
 ) {
-  const { data, error } = await supabase
+  checkSupabaseClient();
+
+  const { data, error } = await supabase!
     .from('progress_items')
     .update({
       type: newType,

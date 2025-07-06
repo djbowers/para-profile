@@ -7,9 +7,18 @@ export interface AuthUser {
   avatar_url?: string;
 }
 
+// Helper function to check if Supabase client is available
+const checkSupabaseClient = () => {
+  if (!supabase) {
+    throw new Error('Supabase client is not available');
+  }
+};
+
 // Send email with both magic link and OTP for sign up
 export async function signUpWithEmail(email: string, fullName?: string) {
-  const { data, error } = await supabase.auth.signInWithOtp({
+  checkSupabaseClient();
+
+  const { data, error } = await supabase!.auth.signInWithOtp({
     email,
     options: {
       shouldCreateUser: true,
@@ -28,7 +37,9 @@ export async function signUpWithEmail(email: string, fullName?: string) {
 
 // Send email with both magic link and OTP for sign in
 export async function signInWithEmail(email: string) {
-  const { data, error } = await supabase.auth.signInWithOtp({
+  checkSupabaseClient();
+
+  const { data, error } = await supabase!.auth.signInWithOtp({
     email,
     options: {
       shouldCreateUser: false,
@@ -44,7 +55,9 @@ export async function signInWithEmail(email: string) {
 
 // Send OTP to phone for sign up
 export async function signUpWithOTP(phone: string, fullName?: string) {
-  const { data, error } = await supabase.auth.signInWithOtp({
+  checkSupabaseClient();
+
+  const { data, error } = await supabase!.auth.signInWithOtp({
     phone,
     options: {
       data: {
@@ -62,7 +75,9 @@ export async function signUpWithOTP(phone: string, fullName?: string) {
 
 // Send OTP to phone for sign in
 export async function signInWithOTP(phone: string) {
-  const { data, error } = await supabase.auth.signInWithOtp({
+  checkSupabaseClient();
+
+  const { data, error } = await supabase!.auth.signInWithOtp({
     phone,
   });
 
@@ -80,8 +95,10 @@ export async function verifyOTP(
   token: string,
   type: 'email' | 'sms'
 ) {
+  checkSupabaseClient();
+
   if (type === 'email' && email) {
-    const { data, error } = await supabase.auth.verifyOtp({
+    const { data, error } = await supabase!.auth.verifyOtp({
       email,
       token,
       type: 'email',
@@ -93,7 +110,7 @@ export async function verifyOTP(
 
     return data;
   } else if (type === 'sms' && phone) {
-    const { data, error } = await supabase.auth.verifyOtp({
+    const { data, error } = await supabase!.auth.verifyOtp({
       phone,
       token,
       type: 'sms',
@@ -110,7 +127,9 @@ export async function verifyOTP(
 }
 
 export async function signOut() {
-  const { error } = await supabase.auth.signOut();
+  checkSupabaseClient();
+
+  const { error } = await supabase!.auth.signOut();
 
   if (error) {
     throw error;
@@ -119,6 +138,10 @@ export async function signOut() {
 
 export async function getCurrentUser(): Promise<AuthUser | null> {
   try {
+    if (!supabase) {
+      return null;
+    }
+
     const {
       data: { user },
     } = await supabase.auth.getUser();
@@ -141,15 +164,17 @@ export async function getCurrentUser(): Promise<AuthUser | null> {
 }
 
 export async function updateProfile(updates: Partial<AuthUser>) {
+  checkSupabaseClient();
+
   const {
     data: { user },
-  } = await supabase.auth.getUser();
+  } = await supabase!.auth.getUser();
 
   if (!user) {
     throw new Error('No authenticated user');
   }
 
-  const { data, error } = await supabase
+  const { data, error } = await supabase!
     .from('profiles')
     .update(updates)
     .eq('id', user.id)
@@ -165,6 +190,10 @@ export async function updateProfile(updates: Partial<AuthUser>) {
 
 // Listen to auth state changes
 export function onAuthStateChange(callback: (user: AuthUser | null) => void) {
+  if (!supabase) {
+    return { data: { subscription: { unsubscribe: () => {} } } };
+  }
+
   return supabase.auth.onAuthStateChange(async (_, session) => {
     if (session?.user) {
       const user = await getCurrentUser();
