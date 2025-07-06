@@ -10,7 +10,8 @@
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test": "vitest",
-    "test:ui": "vitest --ui"
+    "test:ui": "vitest --ui",
+    "export": "next build"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.10",
