@@ -111,7 +111,7 @@ export function ParaTabContent({
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <div className={iconColor}>{icon}</div>
-          <h2 className="text-xl font-bold text-slate-100">{title}</h2>
+          <h2 className="text-xl font-bold text-foreground">{title}</h2>
           <Badge variant="outline" className={`${iconColor} border-current`}>
             {description}
           </Badge>
@@ -125,14 +125,14 @@ export function ParaTabContent({
         className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 min-h-[200px] p-4 rounded-lg border-2 border-dashed transition-colors ${
           dragOverType === value
             ? `${borderColor} bg-opacity-10`
-            : 'border-slate-700'
+            : 'border-border'
         }`}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
       >
         {items.length === 0 && (
-          <div className="col-span-full flex items-center justify-center text-slate-400 text-center py-8">
+          <div className="col-span-full flex items-center justify-center text-muted-foreground text-center py-8">
             <div>
               <div className={`w-12 h-12 mx-auto mb-2 opacity-50 ${iconColor}`}>
                 {icon}

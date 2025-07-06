@@ -1,27 +1,13 @@
 'use client';
 
+import { Session } from '@supabase/supabase-js';
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import type { AuthUser } from '../lib/auth';
-import { getCurrentUser, onAuthStateChange } from '../lib/auth';
+import { supabase } from '../lib/supabase';
 
-interface AuthContextType {
-  user: AuthUser | null;
-  loading: boolean;
-  error: string | null;
-}
+const SessionContext = createContext<Session | null | undefined>(undefined);
 
-const AuthContext = createContext<AuthContextType>({
-  user: null,
-  loading: true,
-  error: null,
-});
-
-export function useAuth() {
-  const context = useContext(AuthContext);
-  if (!context) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
+export function useSession() {
+  return useContext(SessionContext);
 }
 
 interface AuthProviderProps {
@@ -29,39 +15,21 @@ interface AuthProviderProps {
 }
 
 export function AuthProvider({ children }: AuthProviderProps) {
-  const [user, setUser] = useState<AuthUser | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [session, setSession] = useState<Session | null | undefined>(undefined);
 
   useEffect(() => {
-    // Get initial user state
-    getCurrentUser()
-      .then((user) => {
-        setUser(user);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError(err.message);
-        setLoading(false);
-      });
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+    });
 
-    // Listen for auth state changes
     const {
       data: { subscription },
-    } = onAuthStateChange((user) => {
-      setUser(user);
-      setLoading(false);
-      setError(null);
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
     });
 
     return () => subscription.unsubscribe();
   }, []);
 
-  const value = {
-    user,
-    loading,
-    error,
-  };
-
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return <SessionContext.Provider value={session}>{children}</SessionContext.Provider>;
 }

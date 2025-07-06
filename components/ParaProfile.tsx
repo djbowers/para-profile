@@ -40,27 +40,25 @@ export function ParaProfile({
     (projects.length + areas.length + resources.length);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 p-6">
-      <div className="max-w-7xl mx-auto space-y-6">
-        <CharacterProfileHeader
-          totalLevel={totalLevel}
-          avgProgress={avgProgress}
-          activeItemsCount={projects.length + areas.length}
-        />
+    <div className="space-y-6">
+      <CharacterProfileHeader
+        totalLevel={totalLevel}
+        avgProgress={avgProgress}
+        activeItemsCount={projects.length + areas.length}
+      />
 
-        <ParaSystemTabs
-          selectedTab={selectedTab}
-          onTabChange={setSelectedTab}
-          projects={projects}
-          areas={areas}
-          resources={resources}
-          archived={archived}
-          onProjectsChange={setProjects}
-          onAreasChange={setAreas}
-          onResourcesChange={setResources}
-          onArchivedChange={setArchived}
-        />
-      </div>
+      <ParaSystemTabs
+        selectedTab={selectedTab}
+        onTabChange={setSelectedTab}
+        projects={projects}
+        areas={areas}
+        resources={resources}
+        archived={archived}
+        onProjectsChange={setProjects}
+        onAreasChange={setAreas}
+        onResourcesChange={setResources}
+        onArchivedChange={setArchived}
+      />
     </div>
   );
 }

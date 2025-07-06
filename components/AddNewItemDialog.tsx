@@ -55,13 +55,13 @@ export function AddNewItemDialog({ type, onAdd }: AddNewItemDialogProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800">
+        <Button className="bg-gradient-to-r from-status-positive to-primary hover:from-primary hover:to-status-positive">
           <Plus className="w-4 h-4 mr-2" />
           Add New{' '}
           {type.slice(0, -1).charAt(0).toUpperCase() + type.slice(1, -1)}
         </Button>
       </DialogTrigger>
-      <DialogContent className="bg-slate-800 border-slate-700 text-slate-100">
+      <DialogContent className="bg-card border-border text-card-foreground">
         <DialogHeader>
           <DialogTitle>
             Add New{' '}
@@ -70,19 +70,18 @@ export function AddNewItemDialog({ type, onAdd }: AddNewItemDialogProps) {
         </DialogHeader>
         <div className="space-y-4">
           <div>
-            <Label htmlFor="new-name" className="text-slate-300">
+            <Label htmlFor="new-name">
               Name
             </Label>
             <Input
               id="new-name"
               value={newItem.name}
               onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
-              className="bg-slate-700 border-slate-600 text-slate-100"
               placeholder="Enter item name..."
             />
           </div>
           <div>
-            <Label htmlFor="new-category" className="text-slate-300">
+            <Label htmlFor="new-category">
               Category
             </Label>
             <Select
@@ -91,10 +90,10 @@ export function AddNewItemDialog({ type, onAdd }: AddNewItemDialogProps) {
                 setNewItem({ ...newItem, category: value })
               }
             >
-              <SelectTrigger className="bg-slate-700 border-slate-600 text-slate-100">
+              <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent className="bg-slate-700 border-slate-600">
+              <SelectContent>
                 <SelectItem value="Development">Development</SelectItem>
                 <SelectItem value="Marketing">Marketing</SelectItem>
                 <SelectItem value="Design">Design</SelectItem>
@@ -111,7 +110,7 @@ export function AddNewItemDialog({ type, onAdd }: AddNewItemDialogProps) {
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <Label htmlFor="new-progress" className="text-slate-300">
+              <Label htmlFor="new-progress">
                 Progress (%)
               </Label>
               <Input
@@ -126,11 +125,10 @@ export function AddNewItemDialog({ type, onAdd }: AddNewItemDialogProps) {
                     progress: Number.parseInt(e.target.value) || 0,
                   })
                 }
-                className="bg-slate-700 border-slate-600 text-slate-100"
               />
             </div>
             <div>
-              <Label htmlFor="new-level" className="text-slate-300">
+              <Label htmlFor="new-level">
                 Level
               </Label>
               <Input
@@ -144,13 +142,12 @@ export function AddNewItemDialog({ type, onAdd }: AddNewItemDialogProps) {
                     level: Number.parseInt(e.target.value) || 1,
                   })
                 }
-                className="bg-slate-700 border-slate-600 text-slate-100"
               />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <Label htmlFor="new-xp" className="text-slate-300">
+              <Label htmlFor="new-xp">
                 Current XP
               </Label>
               <Input
@@ -164,11 +161,10 @@ export function AddNewItemDialog({ type, onAdd }: AddNewItemDialogProps) {
                     xp: Number.parseInt(e.target.value) || 0,
                   })
                 }
-                className="bg-slate-700 border-slate-600 text-slate-100"
               />
             </div>
             <div>
-              <Label htmlFor="new-maxXp" className="text-slate-300">
+              <Label htmlFor="new-maxXp">
                 Max XP
               </Label>
               <Input
@@ -182,13 +178,12 @@ export function AddNewItemDialog({ type, onAdd }: AddNewItemDialogProps) {
                     maxXp: Number.parseInt(e.target.value) || 1000,
                   })
                 }
-                className="bg-slate-700 border-slate-600 text-slate-100"
               />
             </div>
           </div>
           <Button
             onClick={handleAdd}
-            className="w-full bg-green-600 hover:bg-green-700"
+            className="w-full bg-status-positive hover:bg-primary"
           >
             <Plus className="w-4 h-4 mr-2" />
             Add {type.slice(0, -1).charAt(0).toUpperCase() + type.slice(1, -1)}

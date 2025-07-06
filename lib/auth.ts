@@ -118,27 +118,26 @@ export async function signOut() {
 }
 
 export async function getCurrentUser(): Promise<AuthUser | null> {
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  try {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
 
-  if (!user) {
+    if (!user) {
+      return null;
+    }
+
+    // Return user data without profile lookup for now to avoid hanging
+    return {
+      id: user.id,
+      email: user.email || '',
+      full_name: user.user_metadata?.full_name || undefined,
+      avatar_url: user.user_metadata?.avatar_url || undefined,
+    };
+  } catch (error) {
+    console.warn('Authentication error:', error);
     return null;
   }
-
-  // Get profile data
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('*')
-    .eq('id', user.id)
-    .single();
-
-  return {
-    id: user.id,
-    email: user.email || '',
-    full_name: profile?.full_name || undefined,
-    avatar_url: profile?.avatar_url || undefined,
-  };
 }
 
 export async function updateProfile(updates: Partial<AuthUser>) {
