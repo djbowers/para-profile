@@ -1,31 +1,31 @@
-'use client'
+'use client';
 
-import type React from 'react'
-import { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import type React from 'react';
+import { useState } from 'react';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
+} from '@/components/ui/dialog';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { Plus } from 'lucide-react'
+} from '@/components/ui/select';
+import { Plus } from 'lucide-react';
 
-import type { ProgressItem } from '@/types/progress'
+import type { ProgressItem } from '@/types/progress';
 
 interface AddNewItemDialogProps {
-  type: string
-  onAdd: (type: string, newItem: Omit<ProgressItem, 'icon'>) => void
+  type: string;
+  onAdd: (type: string, newItem: Omit<ProgressItem, 'icon'>) => void;
 }
 
 export function AddNewItemDialog({ type, onAdd }: AddNewItemDialogProps) {
@@ -36,11 +36,11 @@ export function AddNewItemDialog({ type, onAdd }: AddNewItemDialogProps) {
     xp: 0,
     maxXp: 1000,
     category: 'Development',
-  })
+  });
 
   const handleAdd = () => {
     if (newItem.name.trim()) {
-      onAdd(type, newItem)
+      onAdd(type, newItem);
       setNewItem({
         name: '',
         progress: 0,
@@ -48,49 +48,52 @@ export function AddNewItemDialog({ type, onAdd }: AddNewItemDialogProps) {
         xp: 0,
         maxXp: 1000,
         category: 'Development',
-      })
+      });
     }
-  }
+  };
 
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800">
+        <Button className="bg-gradient-to-r from-status-positive to-primary hover:from-primary hover:to-status-positive">
           <Plus className="w-4 h-4 mr-2" />
-          Add New {type.slice(0, -1).charAt(0).toUpperCase() + type.slice(1, -1)}
+          Add New{' '}
+          {type.slice(0, -1).charAt(0).toUpperCase() + type.slice(1, -1)}
         </Button>
       </DialogTrigger>
-      <DialogContent className="bg-slate-800 border-slate-700 text-slate-100">
+      <DialogContent className="bg-card border-border text-card-foreground">
         <DialogHeader>
           <DialogTitle>
-            Add New {type.slice(0, -1).charAt(0).toUpperCase() + type.slice(1, -1)}
+            Add New{' '}
+            {type.slice(0, -1).charAt(0).toUpperCase() + type.slice(1, -1)}
           </DialogTitle>
         </DialogHeader>
         <div className="space-y-4">
           <div>
-            <Label htmlFor="new-name" className="text-slate-300">
+            <Label htmlFor="new-name">
               Name
             </Label>
             <Input
               id="new-name"
               value={newItem.name}
-              onChange={e => setNewItem({ ...newItem, name: e.target.value })}
-              className="bg-slate-700 border-slate-600 text-slate-100"
+              onChange={(e) => setNewItem({ ...newItem, name: e.target.value })}
               placeholder="Enter item name..."
             />
           </div>
           <div>
-            <Label htmlFor="new-category" className="text-slate-300">
+            <Label htmlFor="new-category">
               Category
             </Label>
             <Select
               value={newItem.category}
-              onValueChange={value => setNewItem({ ...newItem, category: value })}
+              onValueChange={(value) =>
+                setNewItem({ ...newItem, category: value })
+              }
             >
-              <SelectTrigger className="bg-slate-700 border-slate-600 text-slate-100">
+              <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
-              <SelectContent className="bg-slate-700 border-slate-600">
+              <SelectContent>
                 <SelectItem value="Development">Development</SelectItem>
                 <SelectItem value="Marketing">Marketing</SelectItem>
                 <SelectItem value="Design">Design</SelectItem>
@@ -107,7 +110,7 @@ export function AddNewItemDialog({ type, onAdd }: AddNewItemDialogProps) {
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <Label htmlFor="new-progress" className="text-slate-300">
+              <Label htmlFor="new-progress">
                 Progress (%)
               </Label>
               <Input
@@ -116,14 +119,16 @@ export function AddNewItemDialog({ type, onAdd }: AddNewItemDialogProps) {
                 min="0"
                 max="100"
                 value={newItem.progress}
-                onChange={e =>
-                  setNewItem({ ...newItem, progress: Number.parseInt(e.target.value) || 0 })
+                onChange={(e) =>
+                  setNewItem({
+                    ...newItem,
+                    progress: Number.parseInt(e.target.value) || 0,
+                  })
                 }
-                className="bg-slate-700 border-slate-600 text-slate-100"
               />
             </div>
             <div>
-              <Label htmlFor="new-level" className="text-slate-300">
+              <Label htmlFor="new-level">
                 Level
               </Label>
               <Input
@@ -131,16 +136,18 @@ export function AddNewItemDialog({ type, onAdd }: AddNewItemDialogProps) {
                 type="number"
                 min="1"
                 value={newItem.level}
-                onChange={e =>
-                  setNewItem({ ...newItem, level: Number.parseInt(e.target.value) || 1 })
+                onChange={(e) =>
+                  setNewItem({
+                    ...newItem,
+                    level: Number.parseInt(e.target.value) || 1,
+                  })
                 }
-                className="bg-slate-700 border-slate-600 text-slate-100"
               />
             </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <Label htmlFor="new-xp" className="text-slate-300">
+              <Label htmlFor="new-xp">
                 Current XP
               </Label>
               <Input
@@ -148,12 +155,16 @@ export function AddNewItemDialog({ type, onAdd }: AddNewItemDialogProps) {
                 type="number"
                 min="0"
                 value={newItem.xp}
-                onChange={e => setNewItem({ ...newItem, xp: Number.parseInt(e.target.value) || 0 })}
-                className="bg-slate-700 border-slate-600 text-slate-100"
+                onChange={(e) =>
+                  setNewItem({
+                    ...newItem,
+                    xp: Number.parseInt(e.target.value) || 0,
+                  })
+                }
               />
             </div>
             <div>
-              <Label htmlFor="new-maxXp" className="text-slate-300">
+              <Label htmlFor="new-maxXp">
                 Max XP
               </Label>
               <Input
@@ -161,19 +172,24 @@ export function AddNewItemDialog({ type, onAdd }: AddNewItemDialogProps) {
                 type="number"
                 min="1"
                 value={newItem.maxXp}
-                onChange={e =>
-                  setNewItem({ ...newItem, maxXp: Number.parseInt(e.target.value) || 1000 })
+                onChange={(e) =>
+                  setNewItem({
+                    ...newItem,
+                    maxXp: Number.parseInt(e.target.value) || 1000,
+                  })
                 }
-                className="bg-slate-700 border-slate-600 text-slate-100"
               />
             </div>
           </div>
-          <Button onClick={handleAdd} className="w-full bg-green-600 hover:bg-green-700">
+          <Button
+            onClick={handleAdd}
+            className="w-full bg-status-positive hover:bg-primary"
+          >
             <Plus className="w-4 h-4 mr-2" />
             Add {type.slice(0, -1).charAt(0).toUpperCase() + type.slice(1, -1)}
           </Button>
         </div>
       </DialogContent>
     </Dialog>
-  )
+  );
 }

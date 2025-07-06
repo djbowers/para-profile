@@ -1,11 +1,11 @@
-import { Meta, StoryObj } from '@storybook/nextjs-vite'
-import { ParaProfile } from './ParaProfile'
+import { Meta, StoryObj } from '@storybook/nextjs-vite';
+import { ParaProfile } from './ParaProfile';
 import {
   initialProjects,
   initialAreas,
   initialResources,
   initialArchived,
-} from '@/data/exampleData'
+} from '@/data/exampleData';
 
 const meta = {
   component: ParaProfile,
@@ -18,10 +18,10 @@ const meta = {
     initialResources,
     initialArchived,
   },
-} satisfies Meta<typeof ParaProfile>
+} satisfies Meta<typeof ParaProfile>;
 
-export default meta
+export default meta;
 
-type Story = StoryObj<typeof meta>
+type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {}
+export const Default: Story = {};

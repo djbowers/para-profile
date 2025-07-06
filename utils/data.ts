@@ -1,4 +1,4 @@
-import type { ProgressItem } from '@/types/progress'
+import type { ProgressItem } from '@/types/progress';
 
 export const getDataByType = (
   type: string,
@@ -9,17 +9,17 @@ export const getDataByType = (
 ): ProgressItem[] => {
   switch (type) {
     case 'projects':
-      return projects
+      return projects;
     case 'areas':
-      return areas
+      return areas;
     case 'resources':
-      return resources
+      return resources;
     case 'archive':
-      return archived
+      return archived;
     default:
-      return []
+      return [];
   }
-}
+};
 
 export const setDataByType = (
   type: string,
@@ -31,16 +31,16 @@ export const setDataByType = (
 ): void => {
   switch (type) {
     case 'projects':
-      onProjectsChange(data)
-      break
+      onProjectsChange(data);
+      break;
     case 'areas':
-      onAreasChange(data)
-      break
+      onAreasChange(data);
+      break;
     case 'resources':
-      onResourcesChange(data)
-      break
+      onResourcesChange(data);
+      break;
     case 'archive':
-      onArchivedChange(data)
-      break
+      onArchivedChange(data);
+      break;
   }
-}
+};

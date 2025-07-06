@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run lint)"
+    ],
+    "deny": []
+  },
+  "commitMessageTemplate": {
+    "excludeClaudeAttribution": true,
+    "includeNewlines": true
+  },
+  "fileTemplate": {
+    "ensureFinalNewline": true
+  }
+}
