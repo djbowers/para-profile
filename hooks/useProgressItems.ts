@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useAuth } from '../contexts/AuthContext';
+import { useSession } from '../contexts/AuthContext';
 import {
   getProgressItems,
   createProgressItem,
@@ -12,7 +12,8 @@ import type { ProgressItem } from '../types/progress';
 type ProgressType = 'project' | 'area' | 'resource' | 'archived';
 
 export function useProgressItems(type: ProgressType) {
-  const { user } = useAuth();
+  const session = useSession();
+  const user = session?.user;
   const [items, setItems] = useState<ProgressItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

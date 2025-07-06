@@ -7,12 +7,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "type-check": "tsc --noEmit",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "export": "next build",
-    "fetch-types": "curl -L https://raw.githubusercontent.com/djbowers/bowers-backend/main/types/supabase.ts -o types/supabase.ts"
+    "fetch-types": "curl -L https://raw.githubusercontent.com/djbowers/bowers-backend/main/types/supabase.ts -o types/supabase.ts",
+    "prepare": "husky"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.10",
@@ -54,6 +56,7 @@
     "eslint": "^9",
     "eslint-config-next": "15.2.4",
     "eslint-plugin-storybook": "^9.0.15",
+    "husky": "^9.1.7",
     "jsdom": "^26.1.0",
     "playwright": "^1.53.2",
     "prettier": "^3.6.2",
