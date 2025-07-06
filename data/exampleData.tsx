@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
   Target,
   MapPin,
@@ -10,8 +10,8 @@ import {
   Shield,
   Heart,
   Brain,
-} from 'lucide-react'
-import type { ProgressItem } from '../types/progress'
+} from 'lucide-react';
+import type { ProgressItem } from '../types/progress';
 
 export const initialProjects: ProgressItem[] = [
   {
@@ -50,7 +50,7 @@ export const initialProjects: ProgressItem[] = [
     category: 'Leadership',
     icon: <Shield className="w-4 h-4" />,
   },
-]
+];
 
 export const initialAreas: ProgressItem[] = [
   {
@@ -89,7 +89,7 @@ export const initialAreas: ProgressItem[] = [
     category: 'Education',
     icon: <Brain className="w-4 h-4" />,
   },
-]
+];
 
 export const initialResources: ProgressItem[] = [
   {
@@ -128,7 +128,7 @@ export const initialResources: ProgressItem[] = [
     category: 'Management',
     icon: <Sword className="w-4 h-4" />,
   },
-]
+];
 
 export const initialArchived: ProgressItem[] = [
   {
@@ -149,4 +149,4 @@ export const initialArchived: ProgressItem[] = [
     category: 'Completed',
     icon: <Archive className="w-4 h-4" />,
   },
-]
+];

@@ -1,13 +1,13 @@
-'use client'
+'use client';
 
-import type React from 'react'
-import { Card, CardContent } from '@/components/ui/card'
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import type React from 'react';
+import { Card, CardContent } from '@/components/ui/card';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 
 interface CharacterProfileHeaderProps {
-  totalLevel: number
-  avgProgress: number
-  activeItemsCount: number
+  totalLevel: number;
+  avgProgress: number;
+  activeItemsCount: number;
 }
 
 export function CharacterProfileHeader({
@@ -32,20 +32,28 @@ export function CharacterProfileHeader({
           </div>
           <div className="flex-1 space-y-3">
             <div>
-              <h1 className="text-3xl font-bold text-slate-100">Productivity Master</h1>
+              <h1 className="text-3xl font-bold text-slate-100">
+                Productivity Master
+              </h1>
               <p className="text-slate-400">PARA System Practitioner</p>
             </div>
             <div className="grid grid-cols-3 gap-4">
               <div className="text-center">
-                <div className="text-2xl font-bold text-yellow-400">{totalLevel}</div>
+                <div className="text-2xl font-bold text-yellow-400">
+                  {totalLevel}
+                </div>
                 <div className="text-xs text-slate-400">Total Levels</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-green-400">{Math.round(avgProgress)}%</div>
+                <div className="text-2xl font-bold text-green-400">
+                  {Math.round(avgProgress)}%
+                </div>
                 <div className="text-xs text-slate-400">Avg Progress</div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-blue-400">{activeItemsCount}</div>
+                <div className="text-2xl font-bold text-blue-400">
+                  {activeItemsCount}
+                </div>
                 <div className="text-xs text-slate-400">Active Items</div>
               </div>
             </div>
@@ -53,5 +61,5 @@ export function CharacterProfileHeader({
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

@@ -20,13 +20,11 @@ This guide will help you deploy your Para Profile project to Netlify.
    ```
 
 2. **Connect to Netlify**
-
    - Go to [netlify.com](https://netlify.com) and sign in
    - Click "Add new site" → "Import an existing project"
    - Connect your GitHub account and select your repository
 
 3. **Configure build settings**
-
    - Build command: `npm run build`
    - Publish directory: `out`
    - Node version: `18` (or higher)

@@ -1,4 +1,4 @@
-import type React from 'react'
+import type React from 'react';
 import {
   Zap,
   Target,
@@ -10,7 +10,7 @@ import {
   Brain,
   Sword,
   Archive,
-} from 'lucide-react'
+} from 'lucide-react';
 
 export const getIconByCategory = (category: string): React.ReactNode => {
   const iconMap: { [key: string]: React.ReactNode } = {
@@ -26,6 +26,6 @@ export const getIconByCategory = (category: string): React.ReactNode => {
     Creative: <Star className="w-4 h-4" />,
     Management: <Sword className="w-4 h-4" />,
     Completed: <Archive className="w-4 h-4" />,
-  }
-  return iconMap[category] || <Star className="w-4 h-4" />
-}
+  };
+  return iconMap[category] || <Star className="w-4 h-4" />;
+};

@@ -1,23 +1,23 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { ParaTabContent } from '@/components/ParaTabContent'
-import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import type { ProgressItem } from '@/types/progress'
-import { Archive, BookOpen, MapPin, Target } from 'lucide-react'
-import { getDataByType, setDataByType } from '@/utils'
+import { useState } from 'react';
+import { ParaTabContent } from '@/components/ParaTabContent';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import type { ProgressItem } from '@/types/progress';
+import { Archive, BookOpen, MapPin, Target } from 'lucide-react';
+import { getDataByType, setDataByType } from '@/utils';
 
 interface ParaSystemTabsProps {
-  selectedTab: string
-  onTabChange: (value: string) => void
-  projects: ProgressItem[]
-  areas: ProgressItem[]
-  resources: ProgressItem[]
-  archived: ProgressItem[]
-  onProjectsChange: (projects: ProgressItem[]) => void
-  onAreasChange: (areas: ProgressItem[]) => void
-  onResourcesChange: (resources: ProgressItem[]) => void
-  onArchivedChange: (archived: ProgressItem[]) => void
+  selectedTab: string;
+  onTabChange: (value: string) => void;
+  projects: ProgressItem[];
+  areas: ProgressItem[];
+  resources: ProgressItem[];
+  archived: ProgressItem[];
+  onProjectsChange: (projects: ProgressItem[]) => void;
+  onAreasChange: (areas: ProgressItem[]) => void;
+  onResourcesChange: (resources: ProgressItem[]) => void;
+  onArchivedChange: (archived: ProgressItem[]) => void;
 }
 
 export function ParaSystemTabs({
@@ -33,14 +33,20 @@ export function ParaSystemTabs({
   onArchivedChange,
 }: ParaSystemTabsProps) {
   const [draggedItem, setDraggedItem] = useState<{
-    item: ProgressItem
-    type: string
-    index: number
-  } | null>(null)
-  const [dragOverType, setDragOverType] = useState<string | null>(null)
+    item: ProgressItem;
+    type: string;
+    index: number;
+  } | null>(null);
+  const [dragOverType, setDragOverType] = useState<string | null>(null);
 
   const addNewItem = (type: string, newItem: Omit<ProgressItem, 'icon'>) => {
-    const currentData = getDataByType(type, projects, areas, resources, archived)
+    const currentData = getDataByType(
+      type,
+      projects,
+      areas,
+      resources,
+      archived
+    );
     setDataByType(
       type,
       [...currentData, newItem as ProgressItem],
@@ -48,18 +54,28 @@ export function ParaSystemTabs({
       onAreasChange,
       onResourcesChange,
       onArchivedChange
-    )
-  }
+    );
+  };
 
-  const moveItemBetweenGroups = (fromType: string, fromIndex: number, toType: string) => {
-    if (fromType === toType) return
+  const moveItemBetweenGroups = (
+    fromType: string,
+    fromIndex: number,
+    toType: string
+  ) => {
+    if (fromType === toType) return;
 
-    const fromData = getDataByType(fromType, projects, areas, resources, archived)
-    const toData = getDataByType(toType, projects, areas, resources, archived)
-    const itemToMove = fromData[fromIndex]
+    const fromData = getDataByType(
+      fromType,
+      projects,
+      areas,
+      resources,
+      archived
+    );
+    const toData = getDataByType(toType, projects, areas, resources, archived);
+    const itemToMove = fromData[fromIndex];
 
     // Remove from source
-    const newFromData = fromData.filter((_, i) => i !== fromIndex)
+    const newFromData = fromData.filter((_, i) => i !== fromIndex);
     setDataByType(
       fromType,
       newFromData,
@@ -67,10 +83,10 @@ export function ParaSystemTabs({
       onAreasChange,
       onResourcesChange,
       onArchivedChange
-    )
+    );
 
     // Add to destination
-    const newToData = [...toData, itemToMove]
+    const newToData = [...toData, itemToMove];
     setDataByType(
       toType,
       newToData,
@@ -78,16 +94,16 @@ export function ParaSystemTabs({
       onAreasChange,
       onResourcesChange,
       onArchivedChange
-    )
-  }
+    );
+  };
 
   const handleDragStateChange = (
     newDraggedItem: { item: ProgressItem; type: string; index: number } | null,
     newDragOverType: string | null
   ) => {
-    setDraggedItem(newDraggedItem)
-    setDragOverType(newDragOverType)
-  }
+    setDraggedItem(newDraggedItem);
+    setDragOverType(newDragOverType);
+  };
 
   return (
     <Tabs value={selectedTab} onValueChange={onTabChange} className="w-full">
@@ -131,7 +147,7 @@ export function ParaSystemTabs({
         borderColor="border-green-400 bg-green-400"
         items={projects}
         onItemsChange={onProjectsChange}
-        onAdd={newItem => addNewItem('projects', newItem)}
+        onAdd={(newItem) => addNewItem('projects', newItem)}
         draggedItem={draggedItem}
         dragOverType={dragOverType}
         onDragStateChange={handleDragStateChange}
@@ -147,7 +163,7 @@ export function ParaSystemTabs({
         borderColor="border-blue-400 bg-blue-400"
         items={areas}
         onItemsChange={onAreasChange}
-        onAdd={newItem => addNewItem('areas', newItem)}
+        onAdd={(newItem) => addNewItem('areas', newItem)}
         draggedItem={draggedItem}
         dragOverType={dragOverType}
         onDragStateChange={handleDragStateChange}
@@ -163,7 +179,7 @@ export function ParaSystemTabs({
         borderColor="border-purple-400 bg-purple-400"
         items={resources}
         onItemsChange={onResourcesChange}
-        onAdd={newItem => addNewItem('resources', newItem)}
+        onAdd={(newItem) => addNewItem('resources', newItem)}
         draggedItem={draggedItem}
         dragOverType={dragOverType}
         onDragStateChange={handleDragStateChange}
@@ -179,12 +195,12 @@ export function ParaSystemTabs({
         borderColor="border-gray-400 bg-gray-400"
         items={archived}
         onItemsChange={onArchivedChange}
-        onAdd={newItem => addNewItem('archive', newItem)}
+        onAdd={(newItem) => addNewItem('archive', newItem)}
         draggedItem={draggedItem}
         dragOverType={dragOverType}
         onDragStateChange={handleDragStateChange}
         onMoveItem={moveItemBetweenGroups}
       />
     </Tabs>
-  )
+  );
 }

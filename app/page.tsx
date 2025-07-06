@@ -1,18 +1,5 @@
-import { ParaProfile } from '@/components/ParaProfile'
-import {
-  initialProjects,
-  initialAreas,
-  initialResources,
-  initialArchived,
-} from '@/data/exampleData'
+import { AuthenticatedPage } from '@/components/AuthenticatedPage';
 
 export default function Page() {
-  return (
-    <ParaProfile
-      initialProjects={initialProjects}
-      initialAreas={initialAreas}
-      initialResources={initialResources}
-      initialArchived={initialArchived}
-    />
-  )
+  return <AuthenticatedPage />;
 }
