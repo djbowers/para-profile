@@ -2,13 +2,16 @@
 
 import React from 'react';
 import { useSession } from '../contexts/AuthContext';
+import { useTheme } from '../contexts/ThemeContext';
 import { AuthForm } from './AuthForm';
 import { ParaProfile } from './ParaProfile';
 import { Button } from './ui/button';
 import { signOut } from '../lib/auth';
+import { Moon, Sun } from 'lucide-react';
 
 export function AuthenticatedPage() {
   const { session } = useSession();
+  const { theme, toggleTheme } = useTheme();
 
   if (session === null) {
     return (
@@ -33,13 +36,27 @@ export function AuthenticatedPage() {
                 {session.user.user_metadata?.full_name ?? session.user.email}
               </p>
             </div>
-            <Button
-              variant="outline"
-              onClick={() => signOut()}
-              className="text-sm"
-            >
-              Sign Out
-            </Button>
+            <div className="flex items-center space-x-2">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={toggleTheme}
+                className="h-9 w-9"
+              >
+                {theme === 'dark' ? (
+                  <Sun className="h-4 w-4" />
+                ) : (
+                  <Moon className="h-4 w-4" />
+                )}
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => signOut()}
+                className="text-sm"
+              >
+                Sign Out
+              </Button>
+            </div>
           </div>
         </div>
       </header>

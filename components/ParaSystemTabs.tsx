@@ -131,7 +131,7 @@ export function ParaSystemTabs({
         </TabsTrigger>
         <TabsTrigger
           value="archive"
-          className="flex items-center gap-2 text-muted-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground cursor-pointer hover:bg-muted hover:text-foreground transition-colors"
+          className="flex items-center gap-2 text-muted-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground cursor-pointer hover:bg-muted-foreground hover:text-primary-foreground transition-colors"
         >
           <Archive className="w-4 h-4" />
           Archive

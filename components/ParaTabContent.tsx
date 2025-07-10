@@ -116,7 +116,7 @@ export function ParaTabContent({
           </Badge>
         </div>
         <AddNewItemDialog
-          type={value}
+          type={value as 'projects' | 'areas' | 'resources' | 'archive'}
           onAdd={(type, newItem) => onAdd(newItem)}
         />
       </div>
