@@ -48,8 +48,9 @@
     --status-error: 0 85% 60%;
     --status-info: 211 85% 55%;
     --status-neutral: 228 10% 50%;
-    --status-positive: 142 69% 58%;
+    --status-positive: 142 69% 45%;
     --status-warning: 50 95% 55%;
+    --status-highlight: 270 90% 70%;
 
     /* Progress colors */
     --progress-excellent: 142 69% 58%;
@@ -104,6 +105,7 @@
     --status-neutral: 228 10% 50%;
     --status-positive: 142 69% 68%;
     --status-warning: 50 95% 65%;
+    --status-highlight: 270 90% 70%;
 
     /* Progress colors */
     --progress-excellent: 142 69% 68%;

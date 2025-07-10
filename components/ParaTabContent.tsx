@@ -5,12 +5,13 @@ import { Badge } from '@/components/ui/badge';
 import { ProgressCard } from '@/components/ProgressCard';
 import { AddNewItemDialog } from '@/components/AddNewItemDialog';
 import type { ProgressItem } from '@/types/progress';
+import { LucideIcon } from 'lucide-react';
 
 interface ParaTabContentProps {
   value: string;
   title: string;
   description: string;
-  icon: React.ReactNode;
+  icon: LucideIcon;
   iconColor: string;
   borderColor: string;
   items: ProgressItem[];
@@ -33,7 +34,7 @@ export function ParaTabContent({
   value,
   title,
   description,
-  icon,
+  icon: Icon,
   iconColor,
   borderColor,
   items,
@@ -106,10 +107,12 @@ export function ParaTabContent({
   };
 
   return (
-    <>
+    <div className="space-y-4">
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <div className={iconColor}>{icon}</div>
+          <div className={iconColor}>
+            <Icon className="w-5 h-5" />
+          </div>
           <h2 className="text-xl font-bold text-foreground">{title}</h2>
           <Badge variant="outline" className={`${iconColor} border-current`}>
             {description}
@@ -134,7 +137,7 @@ export function ParaTabContent({
           <div className="col-span-full flex items-center justify-center text-muted-foreground text-center py-8">
             <div>
               <div className={`w-12 h-12 mx-auto mb-2 opacity-50 ${iconColor}`}>
-                {icon}
+                <Icon className="w-5 h-5" />
               </div>
               <p>No {value}</p>
               <p className="text-sm">Drag items here or add new ones</p>
@@ -158,6 +161,6 @@ export function ParaTabContent({
           />
         ))}
       </div>
-    </>
+    </div>
   );
 }

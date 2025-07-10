@@ -59,6 +59,7 @@ const config: Config = {
           neutral: 'hsl(var(--status-neutral))',
           positive: 'hsl(var(--status-positive))',
           warning: 'hsl(var(--status-warning))',
+          highlight: 'hsl(var(--status-highlight))',
         },
         progress: {
           excellent: 'hsl(var(--progress-excellent))',
