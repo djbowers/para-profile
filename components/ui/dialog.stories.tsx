@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { 
   Dialog, 
   DialogTrigger, 
@@ -107,7 +107,7 @@ export const WithoutCloseButton: Story = {
         <DialogHeader>
           <DialogTitle>Custom Close</DialogTitle>
           <DialogDescription>
-            This dialog doesn't have the default close button.
+            This dialog doesn&apos;t have the default close button.
           </DialogDescription>
         </DialogHeader>
         <div className="py-4">

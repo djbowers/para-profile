@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './card';
 
@@ -47,7 +47,7 @@ export const WithCards: Story = {
           <CardHeader>
             <CardTitle>Account</CardTitle>
             <CardDescription>
-              Make changes to your account here. Click save when you're done.
+              Make changes to your account here. Click save when you&apos;re done.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -60,7 +60,7 @@ export const WithCards: Story = {
           <CardHeader>
             <CardTitle>Password</CardTitle>
             <CardDescription>
-              Change your password here. After saving, you'll be logged out.
+              Change your password here. After saving, you&apos;ll be logged out.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -120,7 +120,7 @@ export const DisabledTab: Story = {
         <p>Active tab content</p>
       </TabsContent>
       <TabsContent value="tab2">
-        <p>This content won't be shown because the tab is disabled</p>
+        <p>This content won&apos;t be shown because the tab is disabled</p>
       </TabsContent>
       <TabsContent value="tab3">
         <p>Another tab content</p>
