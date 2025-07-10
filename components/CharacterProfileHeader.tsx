@@ -3,6 +3,7 @@
 import type React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { getLevelColor, getProgressColor } from '@/utils/colors';
 
 interface CharacterProfileHeaderProps {
   totalLevel: number;
@@ -39,22 +40,32 @@ export function CharacterProfileHeader({
             </div>
             <div className="grid grid-cols-3 gap-4">
               <div className="text-center">
-                <div className="text-2xl font-bold text-primary">
+                <div
+                  className={`text-2xl font-bold text-${getLevelColor(totalLevel)}`}
+                >
                   {totalLevel}
                 </div>
-                <div className="text-xs text-muted-foreground">Total Levels</div>
+                <div className="text-xs text-muted-foreground">
+                  Total Levels
+                </div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-status-positive">
+                <div
+                  className={`text-2xl font-bold text-${getProgressColor(avgProgress)}`}
+                >
                   {Math.round(avgProgress)}%
                 </div>
-                <div className="text-xs text-muted-foreground">Avg Progress</div>
+                <div className="text-xs text-muted-foreground">
+                  Avg Progress
+                </div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-chart-3">
+                <div className="text-2xl font-bold text-status-info">
                   {activeItemsCount}
                 </div>
-                <div className="text-xs text-muted-foreground">Active Items</div>
+                <div className="text-xs text-muted-foreground">
+                  Active Items
+                </div>
               </div>
             </div>
           </div>

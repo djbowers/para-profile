@@ -44,9 +44,24 @@
     --chart-5: 50 95% 55%;
     --radius: 0.5rem;
 
-    /* custom add-ons */
-    --status-warning: 50 95% 55%;
+    /* Status colors */
+    --status-error: 0 85% 60%;
+    --status-info: 211 85% 55%;
+    --status-neutral: 228 10% 50%;
     --status-positive: 142 69% 58%;
+    --status-warning: 50 95% 55%;
+
+    /* Progress colors */
+    --progress-excellent: 142 69% 58%;
+    --progress-good: 50 95% 55%;
+    --progress-fair: 22 88% 55%;
+    --progress-poor: 0 85% 60%;
+
+    /* Level colors */
+    --level-expert: 280 65% 65%;
+    --level-advanced: 211 85% 55%;
+    --level-intermediate: 142 69% 58%;
+    --level-beginner: 228 15% 45%;
   }
 
   .dark {
@@ -83,9 +98,24 @@
     --chart-4: 0 85% 65%;
     --chart-5: 50 95% 65%;
 
-    /* custom add-ons */
-    --status-warning: 50 95% 65%;
+    /* Status colors */
+    --status-error: 0 85% 70%;
+    --status-info: 211 85% 65%;
+    --status-neutral: 228 10% 50%;
     --status-positive: 142 69% 68%;
+    --status-warning: 50 95% 65%;
+
+    /* Progress colors */
+    --progress-excellent: 142 69% 68%;
+    --progress-good: 50 95% 65%;
+    --progress-fair: 22 88% 65%;
+    --progress-poor: 0 85% 60%;
+
+    /* Level colors */
+    --level-expert: 280 65% 75%;
+    --level-advanced: 211 85% 65%;
+    --level-intermediate: 142 69% 68%;
+    --level-beginner: 228 15% 55%;
   }
 }
 

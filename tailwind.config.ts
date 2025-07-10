@@ -1,5 +1,7 @@
-/** @type {import('tailwindcss').Config} */
-export default {
+import type { Config } from 'tailwindcss';
+import tailwindcssAnimate from 'tailwindcss-animate';
+
+const config: Config = {
   darkMode: ['class'],
   content: [
     './pages/**/*.{ts,tsx}',
@@ -51,6 +53,25 @@ export default {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+        status: {
+          error: 'hsl(var(--status-error))',
+          info: 'hsl(var(--status-info))',
+          neutral: 'hsl(var(--status-neutral))',
+          positive: 'hsl(var(--status-positive))',
+          warning: 'hsl(var(--status-warning))',
+        },
+        progress: {
+          excellent: 'hsl(var(--progress-excellent))',
+          good: 'hsl(var(--progress-good))',
+          fair: 'hsl(var(--progress-fair))',
+          poor: 'hsl(var(--progress-poor))',
+        },
+        level: {
+          expert: 'hsl(var(--level-expert))',
+          advanced: 'hsl(var(--level-advanced))',
+          intermediate: 'hsl(var(--level-intermediate))',
+          beginner: 'hsl(var(--level-beginner))',
+        },
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -73,5 +94,7 @@ export default {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [tailwindcssAnimate],
 };
+
+export default config;
