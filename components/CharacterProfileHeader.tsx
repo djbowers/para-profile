@@ -17,13 +17,13 @@ export function CharacterProfileHeader({
   activeItemsCount,
 }: CharacterProfileHeaderProps) {
   return (
-    <Card className="bg-gradient-to-r from-secondary to-accent border-border">
+    <Card className="bg-card border-border">
       <CardContent className="p-6">
         <div className="flex items-center gap-6">
           <div className="relative">
             <Avatar className="w-24 h-24 border-4 border-primary">
               <AvatarImage src="/placeholder-user.jpg" />
-              <AvatarFallback className="bg-gradient-to-br from-primary to-primary/80 text-primary-foreground text-2xl font-bold">
+              <AvatarFallback className="bg-primary text-primary-foreground text-2xl font-bold">
                 P
               </AvatarFallback>
             </Avatar>

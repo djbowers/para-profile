@@ -183,10 +183,7 @@ export function AddNewItemDialog({ type, onAdd }: AddNewItemDialogProps) {
               />
             </div>
           </div>
-          <Button
-            onClick={handleAdd}
-            className="w-full bg-status-positive hover:bg-primary"
-          >
+          <Button onClick={handleAdd} className="w-full">
             <Plus className="w-4 h-4 mr-2" />
             Add {getDisplayName(type)}
           </Button>

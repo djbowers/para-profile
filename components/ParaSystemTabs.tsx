@@ -204,12 +204,8 @@ const ParaTabTrigger = ({
         'flex items-center gap-2',
         // Text color
         'text-muted-foreground',
-        // State: active
-        'data-[state=active]:bg-primary data-[state=active]:text-primary-foreground',
         // Cursor
-        'cursor-pointer',
-        // Transition
-        'transition-colors'
+        'cursor-pointer'
       )}
     >
       <Icon className="w-4 h-4" />

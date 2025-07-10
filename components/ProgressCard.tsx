@@ -132,7 +132,7 @@ export function ProgressCard({
 
   if (isEditing) {
     return (
-      <Card className="bg-gradient-to-br from-card to-secondary border-border">
+      <Card className="bg-card border-border">
         <CardHeader className="pb-3">
           <div className="space-y-3">
             <div>
@@ -265,7 +265,7 @@ export function ProgressCard({
 
   return (
     <Card
-      className={`bg-gradient-to-br from-card to-secondary border-border hover:border-primary transition-all duration-300 group cursor-move ${
+      className={`bg-card border-border hover:border-primary transition-all duration-300 group cursor-move ${
         draggedItem?.type === type && draggedItem?.index === index
           ? 'opacity-50'
           : ''
