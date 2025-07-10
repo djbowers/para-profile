@@ -143,7 +143,7 @@ export function AuthForm({ onSuccess }: AuthFormProps) {
                   setIsSignUp(!isSignUp);
                   resetForm();
                 }}
-                className="text-sm text-blue-600 hover:underline"
+                className="text-sm text-primary hover:underline"
               >
                 {isSignUp
                   ? 'Already have an account? Sign in'
@@ -208,7 +208,7 @@ export function AuthForm({ onSuccess }: AuthFormProps) {
               <button
                 type="button"
                 onClick={resetForm}
-                className="text-sm text-blue-600 hover:underline"
+                className="text-sm text-primary hover:underline"
               >
                 Use different email
               </button>

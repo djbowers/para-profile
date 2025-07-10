@@ -12,7 +12,7 @@ import type { ProgressItem } from '../types/progress';
 type ProgressType = 'project' | 'area' | 'resource' | 'archived';
 
 export function useProgressItems(type: ProgressType) {
-  const session = useSession();
+  const { session } = useSession();
   const user = session?.user;
   const [items, setItems] = useState<ProgressItem[]>([]);
   const [loading, setLoading] = useState(true);

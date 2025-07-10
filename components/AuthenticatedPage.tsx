@@ -8,18 +8,7 @@ import { Button } from './ui/button';
 import { signOut } from '../lib/auth';
 
 export function AuthenticatedPage() {
-  const session = useSession();
-
-  if (session === undefined) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-background">
-        <div className="text-center test-styles">
-          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary mx-auto"></div>
-          <p className="mt-2 text-muted-foreground">Loading... (CSS test)</p>
-        </div>
-      </div>
-    );
-  }
+  const { session } = useSession();
 
   if (session === null) {
     return (
@@ -40,7 +29,8 @@ export function AuthenticatedPage() {
                 Para Profile
               </h1>
               <p className="text-sm text-muted-foreground">
-                Welcome, {session.user.user_metadata?.full_name || session.user.email}
+                Welcome,{' '}
+                {session.user.user_metadata?.full_name ?? session.user.email}
               </p>
             </div>
             <Button
