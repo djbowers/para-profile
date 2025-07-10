@@ -4,8 +4,8 @@ import { useState } from 'react';
 import { ParaTabContent } from '@/components/ParaTabContent';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import type { ProgressItem } from '@/types/progress';
-import { Archive, BookOpen, MapPin, Target } from 'lucide-react';
-import { getDataByType, setDataByType } from '@/utils';
+import { Archive, BookOpen, LucideIcon, MapPin, Target } from 'lucide-react';
+import { cn, getDataByType, setDataByType } from '@/utils';
 
 interface ParaSystemTabsProps {
   selectedTab: string;
@@ -108,107 +108,108 @@ export function ParaSystemTabs({
   return (
     <Tabs value={selectedTab} onValueChange={onTabChange} className="w-full">
       <TabsList className="grid w-full grid-cols-4 bg-card border border-border">
-        <TabsTrigger
-          value="projects"
-          className="flex items-center gap-2 text-muted-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground cursor-pointer hover:bg-status-positive hover:text-primary-foreground transition-colors"
-        >
-          <Target className="w-4 h-4" />
-          Projects
-        </TabsTrigger>
-        <TabsTrigger
-          value="areas"
-          className="flex items-center gap-2 text-muted-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors"
-        >
-          <MapPin className="w-4 h-4" />
-          Areas
-        </TabsTrigger>
-        <TabsTrigger
-          value="resources"
-          className="flex items-center gap-2 text-muted-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground cursor-pointer hover:bg-chart-3 hover:text-primary-foreground transition-colors"
-        >
-          <BookOpen className="w-4 h-4" />
-          Resources
-        </TabsTrigger>
-        <TabsTrigger
-          value="archive"
-          className="flex items-center gap-2 text-muted-foreground data-[state=active]:bg-primary data-[state=active]:text-primary-foreground cursor-pointer hover:bg-muted hover:text-foreground transition-colors"
-        >
-          <Archive className="w-4 h-4" />
-          Archive
-        </TabsTrigger>
+        <ParaTabTrigger value="projects" icon={Target} />
+        <ParaTabTrigger value="areas" icon={MapPin} />
+        <ParaTabTrigger value="resources" icon={BookOpen} />
+        <ParaTabTrigger value="archive" icon={Archive} />
       </TabsList>
 
-      <TabsContent value="projects" className="space-y-4">
+      <TabsContent value="projects">
         <ParaTabContent
-          value="projects"
-          title="Active Projects"
-          description="Short-term efforts you're working on now"
-          icon={<Target className="w-5 h-5" />}
-          iconColor="text-status-positive"
           borderColor="border-status-positive bg-status-positive"
+          description="Short-term efforts you're working on now"
+          dragOverType={dragOverType}
+          draggedItem={draggedItem}
+          icon={Target}
+          iconColor="text-status-positive"
           items={projects}
-          onItemsChange={onProjectsChange}
           onAdd={(newItem) => addNewItem('projects', newItem)}
-          draggedItem={draggedItem}
-          dragOverType={dragOverType}
           onDragStateChange={handleDragStateChange}
+          onItemsChange={onProjectsChange}
           onMoveItem={moveItemBetweenGroups}
+          title="Active Projects"
+          value="projects"
         />
       </TabsContent>
 
-      <TabsContent value="areas" className="space-y-4">
+      <TabsContent value="areas">
         <ParaTabContent
-          value="areas"
-          title="Life Areas"
+          borderColor="border-status-info bg-status-info"
           description="Long-term responsibilities to manage over time"
-          icon={<MapPin className="w-5 h-5" />}
-          iconColor="text-primary"
-          borderColor="border-primary bg-primary"
+          dragOverType={dragOverType}
+          draggedItem={draggedItem}
+          icon={MapPin}
+          iconColor="text-status-info"
           items={areas}
-          onItemsChange={onAreasChange}
           onAdd={(newItem) => addNewItem('areas', newItem)}
-          draggedItem={draggedItem}
-          dragOverType={dragOverType}
           onDragStateChange={handleDragStateChange}
+          onItemsChange={onAreasChange}
           onMoveItem={moveItemBetweenGroups}
+          title="Life Areas"
+          value="areas"
         />
       </TabsContent>
 
-      <TabsContent value="resources" className="space-y-4">
+      <TabsContent value="resources">
         <ParaTabContent
-          value="resources"
-          title="Resources"
+          borderColor="border-status-highlight bg-status-highlight"
           description="Topics or interests that may be useful in the future"
-          icon={<BookOpen className="w-5 h-5" />}
-          iconColor="text-chart-3"
-          borderColor="border-chart-3 bg-chart-3"
-          items={resources}
-          onItemsChange={onResourcesChange}
-          onAdd={(newItem) => addNewItem('resources', newItem)}
-          draggedItem={draggedItem}
           dragOverType={dragOverType}
+          draggedItem={draggedItem}
+          icon={BookOpen}
+          iconColor="text-status-highlight"
+          items={resources}
+          onAdd={(newItem) => addNewItem('resources', newItem)}
           onDragStateChange={handleDragStateChange}
+          onItemsChange={onResourcesChange}
           onMoveItem={moveItemBetweenGroups}
+          title="Resources"
+          value="resources"
         />
       </TabsContent>
 
-      <TabsContent value="archive" className="space-y-4">
+      <TabsContent value="archive">
         <ParaTabContent
-          value="archive"
-          title="Archive"
+          borderColor="border-status-neutral bg-status-neutral"
           description="Inactive items from the other three categories"
-          icon={<Archive className="w-5 h-5" />}
-          iconColor="text-muted-foreground"
-          borderColor="border-muted-foreground bg-muted-foreground"
-          items={archived}
-          onItemsChange={onArchivedChange}
-          onAdd={(newItem) => addNewItem('archive', newItem)}
-          draggedItem={draggedItem}
           dragOverType={dragOverType}
+          draggedItem={draggedItem}
+          icon={Archive}
+          iconColor="text-status-neutral"
+          items={archived}
+          onAdd={(newItem) => addNewItem('archive', newItem)}
           onDragStateChange={handleDragStateChange}
+          onItemsChange={onArchivedChange}
           onMoveItem={moveItemBetweenGroups}
+          title="Archive"
+          value="archive"
         />
       </TabsContent>
     </Tabs>
   );
 }
+
+const ParaTabTrigger = ({
+  value,
+  icon: Icon,
+}: {
+  value: string;
+  icon: LucideIcon;
+}) => {
+  return (
+    <TabsTrigger
+      value={value}
+      className={cn(
+        // Layout
+        'flex items-center gap-2',
+        // Text color
+        'text-muted-foreground',
+        // Cursor
+        'cursor-pointer'
+      )}
+    >
+      <Icon className="w-4 h-4" />
+      {value.charAt(0).toUpperCase() + value.slice(1)}
+    </TabsTrigger>
+  );
+};

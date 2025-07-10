@@ -36,7 +36,7 @@ import type React from 'react';
 import { useState } from 'react';
 
 import type { ProgressItem } from '@/types/progress';
-import { getIconByCategory, getLevelColor, getProgressColor } from '@/utils';
+import { getIconByCategory, getLevelColor } from '@/utils';
 
 interface ProgressCardProps {
   item: ProgressItem;
@@ -132,13 +132,11 @@ export function ProgressCard({
 
   if (isEditing) {
     return (
-      <Card className="bg-gradient-to-br from-card to-secondary border-border">
+      <Card className="bg-card border-border">
         <CardHeader className="pb-3">
           <div className="space-y-3">
             <div>
-              <Label htmlFor="name">
-                Name
-              </Label>
+              <Label htmlFor="name">Name</Label>
               <Input
                 id="name"
                 value={editForm.name}
@@ -148,9 +146,7 @@ export function ProgressCard({
               />
             </div>
             <div>
-              <Label htmlFor="category">
-                Category
-              </Label>
+              <Label htmlFor="category">Category</Label>
               <Select
                 value={editForm.category}
                 onValueChange={(value) =>
@@ -180,9 +176,7 @@ export function ProgressCard({
         <CardContent className="space-y-3">
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <Label htmlFor="progress">
-                Progress (%)
-              </Label>
+              <Label htmlFor="progress">Progress (%)</Label>
               <Input
                 id="progress"
                 type="number"
@@ -198,9 +192,7 @@ export function ProgressCard({
               />
             </div>
             <div>
-              <Label htmlFor="level">
-                Level
-              </Label>
+              <Label htmlFor="level">Level</Label>
               <Input
                 id="level"
                 type="number"
@@ -217,9 +209,7 @@ export function ProgressCard({
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <Label htmlFor="xp">
-                Current XP
-              </Label>
+              <Label htmlFor="xp">Current XP</Label>
               <Input
                 id="xp"
                 type="number"
@@ -234,9 +224,7 @@ export function ProgressCard({
               />
             </div>
             <div>
-              <Label htmlFor="maxXp">
-                Max XP
-              </Label>
+              <Label htmlFor="maxXp">Max XP</Label>
               <Input
                 id="maxXp"
                 type="number"
@@ -277,7 +265,7 @@ export function ProgressCard({
 
   return (
     <Card
-      className={`bg-gradient-to-br from-card to-secondary border-border hover:border-primary transition-all duration-300 group cursor-move ${
+      className={`bg-card border-border hover:border-primary transition-all duration-300 group cursor-move ${
         draggedItem?.type === type && draggedItem?.index === index
           ? 'opacity-50'
           : ''
@@ -358,13 +346,11 @@ export function ProgressCard({
             </div>
             <Badge
               variant="outline"
-              className={`${getLevelColor(item.level)} border-current`}
+              className={`text-${getLevelColor(item.level)} border-current`}
             >
               Lv.{item.level}
             </Badge>
-            <Badge variant="secondary">
-              {item.category}
-            </Badge>
+            <Badge variant="secondary">{item.category}</Badge>
           </div>
         </div>
       </CardHeader>
@@ -376,12 +362,6 @@ export function ProgressCard({
           </div>
           <div className="relative">
             <Progress value={item.progress} className="h-3" />
-            <div
-              className={`absolute top-0 left-0 h-3 rounded-full ${getProgressColor(
-                item.progress
-              )} transition-all duration-500`}
-              style={{ width: `${item.progress}%` }}
-            />
           </div>
         </div>
         <div className="space-y-2">
@@ -392,10 +372,7 @@ export function ProgressCard({
             </span>
           </div>
           <div className="relative">
-            <Progress
-              value={(item.xp / item.maxXp) * 100}
-              className="h-2 bg-muted"
-            />
+            <Progress value={(item.xp / item.maxXp) * 100} className="h-2" />
             <div
               className="absolute top-0 left-0 h-2 rounded-full bg-primary transition-all duration-500"
               style={{ width: `${(item.xp / item.maxXp) * 100}%` }}

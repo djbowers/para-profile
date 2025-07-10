@@ -1,6 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { ParaTabContent } from './ParaTabContent';
-import { initialProjects, initialAreas, initialResources, initialArchived } from '@/data/exampleData';
+import {
+  initialProjects,
+  initialAreas,
+  initialResources,
+  initialArchived,
+} from '@/data/exampleData';
 import { Target, MapPin, BookOpen, Archive } from 'lucide-react';
 
 const meta: Meta<typeof ParaTabContent> = {
@@ -24,8 +29,10 @@ type Story = StoryObj<typeof meta>;
 const mockHandlers = {
   onItemsChange: (items: unknown[]) => console.log('Items changed:', items),
   onAdd: (newItem: unknown) => console.log('Adding item:', newItem),
-  onDragStateChange: (draggedItem: unknown, dragOverType: unknown) => console.log('Drag state changed:', draggedItem, dragOverType),
-  onMoveItem: (fromType: string, fromIndex: number, toType: string) => console.log('Moving item:', fromType, fromIndex, toType),
+  onDragStateChange: (draggedItem: unknown, dragOverType: unknown) =>
+    console.log('Drag state changed:', draggedItem, dragOverType),
+  onMoveItem: (fromType: string, fromIndex: number, toType: string) =>
+    console.log('Moving item:', fromType, fromIndex, toType),
 };
 
 export const ProjectsContent: Story = {
@@ -33,7 +40,7 @@ export const ProjectsContent: Story = {
     value: 'projects',
     title: 'Active Projects',
     description: 'Short-term efforts you&apos;re working on now',
-    icon: <Target className="w-5 h-5" />,
+    icon: Target,
     iconColor: 'text-status-positive',
     borderColor: 'border-status-positive bg-status-positive',
     items: initialProjects,
@@ -48,7 +55,7 @@ export const AreasContent: Story = {
     value: 'areas',
     title: 'Life Areas',
     description: 'Long-term responsibilities to manage over time',
-    icon: <MapPin className="w-5 h-5" />,
+    icon: MapPin,
     iconColor: 'text-primary',
     borderColor: 'border-primary bg-primary',
     items: initialAreas,
@@ -63,7 +70,7 @@ export const ResourcesContent: Story = {
     value: 'resources',
     title: 'Resources',
     description: 'Topics or interests that may be useful in the future',
-    icon: <BookOpen className="w-5 h-5" />,
+    icon: BookOpen,
     iconColor: 'text-chart-3',
     borderColor: 'border-chart-3 bg-chart-3',
     items: initialResources,
@@ -78,7 +85,7 @@ export const ArchiveContent: Story = {
     value: 'archive',
     title: 'Archive',
     description: 'Inactive items from the other three categories',
-    icon: <Archive className="w-5 h-5" />,
+    icon: Archive,
     iconColor: 'text-muted-foreground',
     borderColor: 'border-muted-foreground bg-muted-foreground',
     items: initialArchived,
@@ -93,7 +100,7 @@ export const EmptyContent: Story = {
     value: 'projects',
     title: 'Active Projects',
     description: 'Short-term efforts you&apos;re working on now',
-    icon: <Target className="w-5 h-5" />,
+    icon: Target,
     iconColor: 'text-status-positive',
     borderColor: 'border-status-positive bg-status-positive',
     items: [],
@@ -108,7 +115,7 @@ export const SingleItemContent: Story = {
     value: 'projects',
     title: 'Active Projects',
     description: 'Short-term efforts you&apos;re working on now',
-    icon: <Target className="w-5 h-5" />,
+    icon: Target,
     iconColor: 'text-status-positive',
     borderColor: 'border-status-positive bg-status-positive',
     items: [initialProjects[0]],
@@ -123,7 +130,7 @@ export const ManyItemsContent: Story = {
     value: 'projects',
     title: 'Active Projects',
     description: 'Short-term efforts you&apos;re working on now',
-    icon: <Target className="w-5 h-5" />,
+    icon: Target,
     iconColor: 'text-status-positive',
     borderColor: 'border-status-positive bg-status-positive',
     items: [...initialProjects, ...initialProjects, ...initialProjects],
@@ -138,7 +145,7 @@ export const DragOverState: Story = {
     value: 'projects',
     title: 'Active Projects',
     description: 'Short-term efforts you&apos;re working on now',
-    icon: <Target className="w-5 h-5" />,
+    icon: Target,
     iconColor: 'text-status-positive',
     borderColor: 'border-status-positive bg-status-positive',
     items: initialProjects,
@@ -157,7 +164,7 @@ export const WithDraggedItem: Story = {
     value: 'projects',
     title: 'Active Projects',
     description: 'Short-term efforts you&apos;re working on now',
-    icon: <Target className="w-5 h-5" />,
+    icon: Target,
     iconColor: 'text-status-positive',
     borderColor: 'border-status-positive bg-status-positive',
     items: initialProjects,

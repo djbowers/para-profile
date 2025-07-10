@@ -10,82 +10,149 @@
 
 @layer base {
   :root {
-    --background: 0 0% 98%;
-    --card: 0 0% 98%;
-    --popover: 0 0% 98%;
-    --sidebar: 0 0% 98%;
-    --foreground: 203 6% 10%;
-    --card-foreground: 203 6% 10%;
-    --popover-foreground: 203 6% 10%;
-    --sidebar-foreground: 203 6% 10%;
-    --primary: 202 65% 32%;
-    --sidebar-primary: 202 65% 32%;
-    --primary-foreground: 0 0% 95%;
-    --sidebar-primary-foreground: 0 0% 95%;
-    --secondary: 202 12% 85%;
-    --accent: 202 12% 85%;
-    --sidebar-accent: 202 12% 85%;
-    --secondary-foreground: 0 0% 10%;
-    --accent-foreground: 0 0% 10%;
-    --sidebar-accent-foreground: 0 0% 10%;
-    --muted: 202 8% 87%;
-    --muted-foreground: 203 8% 45%;
-    --destructive: 0 85% 51%;
-    --destructive-foreground: 0 0% 95%;
-    --border: 202 38% 75%;
-    --sidebar-border: 202 38% 81%;
-    --ring: 202 60% 76%;
-    --sidebar-ring: 202 60% 76%;
-    --input: 202 34% 81%;
-    --chart-1: 202 65% 38%;
-    --chart-2: 22 65% 35%;
-    --chart-3: 232 65% 40%;
-    --chart-4: 172 65% 40%;
-    --chart-5: 322 65% 40%;
-    --radius: 0.5rem;
+    --background: 0 0% 97.6471%;
+    --foreground: 0 0% 22.7451%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 22.7451%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 22.7451%;
+    --primary: 0 0% 37.6471%;
+    --primary-foreground: 0 0% 94.1176%;
+    --secondary: 0 0% 87.0588%;
+    --secondary-foreground: 0 0% 22.7451%;
+    --muted: 0 0% 89.0196%;
+    --muted-foreground: 0 0% 31.3725%;
+    --accent: 47.4419 64.1791% 86.8627%;
+    --accent-foreground: 14.2105 25.6757% 29.0196%;
+    --destructive: 0 41.4894% 63.1373%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 0 0.8696% 45.098%;
+    --input: 0 0% 100%;
+    --ring: 0 0% 62.7451%;
+    --chart-1: 0 0% 20%;
+    --chart-2: 0 0% 33.3333%;
+    --chart-3: 0 0% 46.6667%;
+    --chart-4: 0 0% 60%;
+    --chart-5: 0 0% 73.3333%;
+    --sidebar: 0 0% 94.1176%;
+    --sidebar-foreground: 0 0% 22.7451%;
+    --sidebar-primary: 0 0% 37.6471%;
+    --sidebar-primary-foreground: 0 0% 94.1176%;
+    --sidebar-accent: 47.4419 64.1791% 86.8627%;
+    --sidebar-accent-foreground: 14.2105 25.6757% 29.0196%;
+    --sidebar-border: 0 0% 75.2941%;
+    --sidebar-ring: 0 0% 62.7451%;
+    --font-sans: Architects Daughter, sans-serif;
+    --font-serif: 'Times New Roman', Times, serif;
+    --font-mono: 'Courier New', Courier, monospace;
+    --radius: 0.625rem;
+    --shadow-2xs: 1px 4px 5px 0px hsl(0 0% 0% / 0.01);
+    --shadow-xs: 1px 4px 5px 0px hsl(0 0% 0% / 0.01);
+    --shadow-sm:
+      1px 4px 5px 0px hsl(0 0% 0% / 0.03), 1px 1px 2px -1px hsl(0 0% 0% / 0.03);
+    --shadow:
+      1px 4px 5px 0px hsl(0 0% 0% / 0.03), 1px 1px 2px -1px hsl(0 0% 0% / 0.03);
+    --shadow-md:
+      1px 4px 5px 0px hsl(0 0% 0% / 0.03), 1px 2px 4px -1px hsl(0 0% 0% / 0.03);
+    --shadow-lg:
+      1px 4px 5px 0px hsl(0 0% 0% / 0.03), 1px 4px 6px -1px hsl(0 0% 0% / 0.03);
+    --shadow-xl:
+      1px 4px 5px 0px hsl(0 0% 0% / 0.03), 1px 8px 10px -1px hsl(0 0% 0% / 0.03);
+    --shadow-2xl: 1px 4px 5px 0px hsl(0 0% 0% / 0.07);
+    --tracking-normal: 0.5px;
+    --spacing: 0.25rem;
 
-    /* custom add-ons */
-    --status-warning: 27 96% 61%;
-    --status-positive: 142 69.2% 58%;
+    /* Status colors */
+    --status-error: 0 84% 60%;
+    --status-info: 199 89% 48%;
+    --status-neutral: 0 0% 45%;
+    --status-positive: 142 71% 45%;
+    --status-warning: 48 96% 53%;
+    --status-highlight: 265 90% 60%;
+
+    /* Progress colors */
+    --progress-excellent: 142 71% 45%;
+    --progress-good: 48 96% 53%;
+    --progress-fair: 25 95% 53%;
+    --progress-poor: 0 84% 60%;
+
+    /* Level colors */
+    --level-expert: 258 90% 66%;
+    --level-advanced: 199 89% 48%;
+    --level-intermediate: 142 71% 45%;
+    --level-beginner: 48 96% 53%;
   }
 
   .dark {
-    --background: 203 15% 10%;
-    --card: 203 15% 10%;
-    --popover: 203 15% 10%;
-    --sidebar: 203 15% 10%;
-    --foreground: 202 7% 95%;
-    --card-foreground: 202 7% 95%;
-    --popover-foreground: 202 7% 95%;
-    --sidebar-foreground: 202 7% 95%;
-    --primary: 202 65% 51%;
-    --sidebar-primary: 202 65% 51%;
-    --primary-foreground: 0 0% 95%;
-    --sidebar-primary-foreground: 0 0% 95%;
-    --secondary: 203 35% 18%;
-    --accent: 203 35% 18%;
-    --sidebar-accent: 203 35% 18%;
-    --secondary-foreground: 0 0% 95%;
-    --accent-foreground: 0 0% 95%;
-    --sidebar-accent-foreground: 0 0% 95%;
-    --muted: 203 23% 22%;
-    --muted-foreground: 203 10% 65%;
-    --destructive: 0 85% 54%;
-    --destructive-foreground: 0 0% 95%;
-    --border: 203 42% 21%;
-    --sidebar-border: 203 42% 21%;
-    --ring: 202 70% 26%;
-    --sidebar-ring: 202 70% 26%;
-    --input: 202 38% 21%;
-    --chart-1: 202 65% 51%;
-    --chart-2: 22 65% 56%;
-    --chart-3: 232 65% 53%;
-    --chart-4: 172 65% 53%;
-    --chart-5: 322 65% 54%;
+    --background: 0 0% 16.8627%;
+    --foreground: 0 0% 86.2745%;
+    --card: 0 0% 20%;
+    --card-foreground: 0 0% 86.2745%;
+    --popover: 0 0% 20%;
+    --popover-foreground: 0 0% 86.2745%;
+    --primary: 0 0% 69.0196%;
+    --primary-foreground: 0 0% 16.8627%;
+    --secondary: 0 0% 35.2941%;
+    --secondary-foreground: 0 0% 75.2941%;
+    --muted: 0 0% 27.0588%;
+    --muted-foreground: 0 0% 62.7451%;
+    --accent: 0 0% 87.8431%;
+    --accent-foreground: 0 0% 20%;
+    --destructive: 0 35.5932% 76.8627%;
+    --destructive-foreground: 0 0% 16.8627%;
+    --border: 0 0% 30.9804%;
+    --input: 0 0% 20%;
+    --ring: 0 0% 75.2941%;
+    --chart-1: 0 0% 93.7255%;
+    --chart-2: 0 0% 81.5686%;
+    --chart-3: 0 0% 69.0196%;
+    --chart-4: 0 0% 56.4706%;
+    --chart-5: 0 0% 43.9216%;
+    --sidebar: 0 0% 12.9412%;
+    --sidebar-foreground: 0 0% 86.2745%;
+    --sidebar-primary: 0 0% 69.0196%;
+    --sidebar-primary-foreground: 0 0% 12.9412%;
+    --sidebar-accent: 0 0% 87.8431%;
+    --sidebar-accent-foreground: 0 0% 20%;
+    --sidebar-border: 0 0% 30.9804%;
+    --sidebar-ring: 0 0% 75.2941%;
+    --font-sans: Architects Daughter, sans-serif;
+    --font-serif: Georgia, serif;
+    --font-mono: 'Fira Code', 'Courier New', monospace;
+    --radius: 0.625rem;
+    --shadow-2xs: 1px 4px 5px 0px hsl(0 0% 0% / 0.01);
+    --shadow-xs: 1px 4px 5px 0px hsl(0 0% 0% / 0.01);
+    --shadow-sm:
+      1px 4px 5px 0px hsl(0 0% 0% / 0.03), 1px 1px 2px -1px hsl(0 0% 0% / 0.03);
+    --shadow:
+      1px 4px 5px 0px hsl(0 0% 0% / 0.03), 1px 1px 2px -1px hsl(0 0% 0% / 0.03);
+    --shadow-md:
+      1px 4px 5px 0px hsl(0 0% 0% / 0.03), 1px 2px 4px -1px hsl(0 0% 0% / 0.03);
+    --shadow-lg:
+      1px 4px 5px 0px hsl(0 0% 0% / 0.03), 1px 4px 6px -1px hsl(0 0% 0% / 0.03);
+    --shadow-xl:
+      1px 4px 5px 0px hsl(0 0% 0% / 0.03), 1px 8px 10px -1px hsl(0 0% 0% / 0.03);
+    --shadow-2xl: 1px 4px 5px 0px hsl(0 0% 0% / 0.07);
 
-    /* custom add-ons */
-    --status-warning: 31 97.2% 72.4%;
-    --status-positive: 142 76.6% 73.1%;
+    /* Status colors */
+    --status-error: 0 84% 60%;
+    --status-info: 199 89% 48%;
+    --status-neutral: 0 0% 45%;
+    --status-positive: 142 71% 45%;
+    --status-warning: 48 96% 53%;
+    --status-highlight: 265 90% 60%;
+
+    /* Progress colors */
+    --progress-excellent: 142 71% 45%;
+    --progress-good: 48 96% 53%;
+    --progress-fair: 25 95% 53%;
+    --progress-poor: 0 84% 60%;
+
+    /* Level colors */
+    --level-expert: 258 90% 66%;
+    --level-advanced: 199 89% 48%;
+    --level-intermediate: 142 71% 45%;
+    --level-beginner: 48 96% 53%;
   }
 }
 
@@ -97,6 +164,7 @@
     @apply bg-background text-foreground;
     /* Disable pull-to-refresh on mobile PWAs */
     overscroll-behavior-y: contain;
+    letter-spacing: var(--tracking-normal);
   }
 }
 
@@ -145,5 +213,13 @@
   /* Hide elements that are only useful in standalone mode */
   .standalone-only {
     display: none !important;
+  }
+}
+
+@layer components {
+  .glow {
+    box-shadow:
+      0 0 8px 2px hsl(var(--primary) / 0.5),
+      0 0 1.5px 0 hsl(var(--accent) / 0.5);
   }
 }

@@ -24,8 +24,11 @@ import { Plus } from 'lucide-react';
 import type { ProgressItem } from '@/types/progress';
 
 interface AddNewItemDialogProps {
-  type: string;
-  onAdd: (type: string, newItem: Omit<ProgressItem, 'icon'>) => void;
+  type: 'projects' | 'areas' | 'resources' | 'archive';
+  onAdd: (
+    type: 'projects' | 'areas' | 'resources' | 'archive',
+    newItem: Omit<ProgressItem, 'icon'>
+  ) => void;
 }
 
 export function AddNewItemDialog({ type, onAdd }: AddNewItemDialogProps) {
@@ -37,6 +40,21 @@ export function AddNewItemDialog({ type, onAdd }: AddNewItemDialogProps) {
     maxXp: 1000,
     category: 'Development',
   });
+
+  const getDisplayName = (
+    type: 'projects' | 'areas' | 'resources' | 'archive'
+  ) => {
+    switch (type) {
+      case 'projects':
+        return 'Project';
+      case 'areas':
+        return 'Area';
+      case 'resources':
+        return 'Resource';
+      case 'archive':
+        return 'Archive';
+    }
+  };
 
   const handleAdd = () => {
     if (newItem.name.trim()) {
@@ -55,24 +73,18 @@ export function AddNewItemDialog({ type, onAdd }: AddNewItemDialogProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button className="bg-gradient-to-r from-status-positive to-primary hover:from-primary hover:to-status-positive">
+        <Button>
           <Plus className="w-4 h-4 mr-2" />
-          Add New{' '}
-          {type.slice(0, -1).charAt(0).toUpperCase() + type.slice(1, -1)}
+          Add New {getDisplayName(type)}
         </Button>
       </DialogTrigger>
       <DialogContent className="bg-card border-border text-card-foreground">
         <DialogHeader>
-          <DialogTitle>
-            Add New{' '}
-            {type.slice(0, -1).charAt(0).toUpperCase() + type.slice(1, -1)}
-          </DialogTitle>
+          <DialogTitle>Add New {getDisplayName(type)}</DialogTitle>
         </DialogHeader>
         <div className="space-y-4">
           <div>
-            <Label htmlFor="new-name">
-              Name
-            </Label>
+            <Label htmlFor="new-name">Name</Label>
             <Input
               id="new-name"
               value={newItem.name}
@@ -81,9 +93,7 @@ export function AddNewItemDialog({ type, onAdd }: AddNewItemDialogProps) {
             />
           </div>
           <div>
-            <Label htmlFor="new-category">
-              Category
-            </Label>
+            <Label htmlFor="new-category">Category</Label>
             <Select
               value={newItem.category}
               onValueChange={(value) =>
@@ -110,9 +120,7 @@ export function AddNewItemDialog({ type, onAdd }: AddNewItemDialogProps) {
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <Label htmlFor="new-progress">
-                Progress (%)
-              </Label>
+              <Label htmlFor="new-progress">Progress (%)</Label>
               <Input
                 id="new-progress"
                 type="number"
@@ -128,9 +136,7 @@ export function AddNewItemDialog({ type, onAdd }: AddNewItemDialogProps) {
               />
             </div>
             <div>
-              <Label htmlFor="new-level">
-                Level
-              </Label>
+              <Label htmlFor="new-level">Level</Label>
               <Input
                 id="new-level"
                 type="number"
@@ -147,9 +153,7 @@ export function AddNewItemDialog({ type, onAdd }: AddNewItemDialogProps) {
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <Label htmlFor="new-xp">
-                Current XP
-              </Label>
+              <Label htmlFor="new-xp">Current XP</Label>
               <Input
                 id="new-xp"
                 type="number"
@@ -164,9 +168,7 @@ export function AddNewItemDialog({ type, onAdd }: AddNewItemDialogProps) {
               />
             </div>
             <div>
-              <Label htmlFor="new-maxXp">
-                Max XP
-              </Label>
+              <Label htmlFor="new-maxXp">Max XP</Label>
               <Input
                 id="new-maxXp"
                 type="number"
@@ -181,12 +183,9 @@ export function AddNewItemDialog({ type, onAdd }: AddNewItemDialogProps) {
               />
             </div>
           </div>
-          <Button
-            onClick={handleAdd}
-            className="w-full bg-status-positive hover:bg-primary"
-          >
+          <Button onClick={handleAdd} className="w-full">
             <Plus className="w-4 h-4 mr-2" />
-            Add {type.slice(0, -1).charAt(0).toUpperCase() + type.slice(1, -1)}
+            Add {getDisplayName(type)}
           </Button>
         </div>
       </DialogContent>

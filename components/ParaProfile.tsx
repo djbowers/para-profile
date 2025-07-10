@@ -32,12 +32,11 @@ export function ParaProfile({
     (sum, item) => sum + item.level,
     0
   );
+  const allItems = [...projects, ...areas, ...resources];
   const avgProgress =
-    [...projects, ...areas, ...resources].reduce(
-      (sum, item) => sum + item.progress,
-      0
-    ) /
-    (projects.length + areas.length + resources.length);
+    allItems.length > 0
+      ? allItems.reduce((sum, item) => sum + item.progress, 0) / allItems.length
+      : 0;
 
   return (
     <div className="space-y-6">

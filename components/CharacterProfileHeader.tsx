@@ -3,6 +3,7 @@
 import type React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { getLevelColor, getProgressColor } from '@/utils/colors';
 
 interface CharacterProfileHeaderProps {
   totalLevel: number;
@@ -16,13 +17,13 @@ export function CharacterProfileHeader({
   activeItemsCount,
 }: CharacterProfileHeaderProps) {
   return (
-    <Card className="bg-gradient-to-r from-secondary to-accent border-border">
+    <Card className="bg-card border-border">
       <CardContent className="p-6">
         <div className="flex items-center gap-6">
           <div className="relative">
             <Avatar className="w-24 h-24 border-4 border-primary">
               <AvatarImage src="/placeholder-user.jpg" />
-              <AvatarFallback className="bg-gradient-to-br from-primary to-primary/80 text-primary-foreground text-2xl font-bold">
+              <AvatarFallback className="bg-primary text-primary-foreground text-2xl font-bold">
                 P
               </AvatarFallback>
             </Avatar>
@@ -39,22 +40,32 @@ export function CharacterProfileHeader({
             </div>
             <div className="grid grid-cols-3 gap-4">
               <div className="text-center">
-                <div className="text-2xl font-bold text-primary">
+                <div
+                  className={`text-2xl font-bold text-${getLevelColor(totalLevel)}`}
+                >
                   {totalLevel}
                 </div>
-                <div className="text-xs text-muted-foreground">Total Levels</div>
+                <div className="text-xs text-muted-foreground">
+                  Total Levels
+                </div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-status-positive">
+                <div
+                  className={`text-2xl font-bold text-${getProgressColor(avgProgress)}`}
+                >
                   {Math.round(avgProgress)}%
                 </div>
-                <div className="text-xs text-muted-foreground">Avg Progress</div>
+                <div className="text-xs text-muted-foreground">
+                  Avg Progress
+                </div>
               </div>
               <div className="text-center">
-                <div className="text-2xl font-bold text-chart-3">
+                <div className="text-2xl font-bold text-status-info">
                   {activeItemsCount}
                 </div>
-                <div className="text-xs text-muted-foreground">Active Items</div>
+                <div className="text-xs text-muted-foreground">
+                  Active Items
+                </div>
               </div>
             </div>
           </div>
