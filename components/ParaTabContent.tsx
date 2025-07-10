@@ -1,7 +1,6 @@
 'use client';
 
 import type React from 'react';
-import { TabsContent } from '@/components/ui/tabs';
 import { Badge } from '@/components/ui/badge';
 import { ProgressCard } from '@/components/ProgressCard';
 import { AddNewItemDialog } from '@/components/AddNewItemDialog';
@@ -107,7 +106,7 @@ export function ParaTabContent({
   };
 
   return (
-    <TabsContent value={value} className="space-y-4">
+    <>
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <div className={iconColor}>{icon}</div>
@@ -159,6 +158,6 @@ export function ParaTabContent({
           />
         ))}
       </div>
-    </TabsContent>
+    </>
   );
 }
