@@ -1,7 +1,9 @@
 import path from 'path';
+import nextjs from 'vite-plugin-storybook-nextjs';
 import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
+  plugins: [nextjs()],
   test: {
     environment: 'jsdom',
     setupFiles: ['vitest.setup.ts'],
