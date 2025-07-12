@@ -1,10 +1,9 @@
 'use client';
 
 import React, { useState } from 'react';
+
 import { signInWithEmail, signUpWithEmail, verifyOTP } from '../lib/auth';
 import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { Label } from './ui/label';
 import {
   Card,
   CardContent,
@@ -12,6 +11,8 @@ import {
   CardHeader,
   CardTitle,
 } from './ui/card';
+import { Input } from './ui/input';
+import { Label } from './ui/label';
 
 interface AuthFormProps {
   onSuccess?: () => void;

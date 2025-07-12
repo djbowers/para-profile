@@ -1,8 +1,8 @@
-import '@testing-library/jest-dom';
 import * as a11yAddonAnnotations from '@storybook/addon-a11y/preview';
-import { afterEach, beforeAll, afterAll, vi } from 'vitest';
-import { cleanup } from '@testing-library/react';
 import { setProjectAnnotations } from '@storybook/nextjs-vite';
+import '@testing-library/jest-dom';
+import { cleanup } from '@testing-library/react';
+import { afterAll, afterEach, beforeAll, vi } from 'vitest';
 
 import * as projectAnnotations from './.storybook/preview';
 import { server } from './mocks/server';

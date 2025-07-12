@@ -1,11 +1,13 @@
+import { HttpResponse, http } from 'msw';
+
 import { DatabaseProgressItem } from '@/types/progress';
-import { http, HttpResponse } from 'msw';
+
 import {
-  mockProgressItems,
-  getNextId,
-  MOCK_USER_ID,
   MOCK_USER_EMAIL,
+  MOCK_USER_ID,
   MOCK_USER_NAME,
+  getNextId,
+  mockProgressItems,
 } from './mockData';
 
 // Supabase API base URL

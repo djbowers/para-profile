@@ -1,13 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { 
-  Select, 
-  SelectContent, 
-  SelectItem, 
-  SelectTrigger, 
-  SelectValue,
+
+import {
+  Select,
+  SelectContent,
   SelectGroup,
+  SelectItem,
   SelectLabel,
-  SelectSeparator
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
 } from './select';
 
 const meta: Meta<typeof Select> = {
@@ -71,9 +72,13 @@ export const WithDisabledOptions: Story = {
       </SelectTrigger>
       <SelectContent>
         <SelectItem value="option1">Option 1</SelectItem>
-        <SelectItem value="option2" disabled>Option 2 (disabled)</SelectItem>
+        <SelectItem value="option2" disabled>
+          Option 2 (disabled)
+        </SelectItem>
         <SelectItem value="option3">Option 3</SelectItem>
-        <SelectItem value="option4" disabled>Option 4 (disabled)</SelectItem>
+        <SelectItem value="option4" disabled>
+          Option 4 (disabled)
+        </SelectItem>
       </SelectContent>
     </Select>
   ),

@@ -1,15 +1,16 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { 
-  Dialog, 
-  DialogTrigger, 
-  DialogContent, 
-  DialogHeader, 
-  DialogTitle, 
-  DialogDescription, 
-  DialogFooter, 
-  DialogClose 
-} from './dialog';
+
 import { Button } from './button';
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from './dialog';
 
 const meta: Meta<typeof Dialog> = {
   title: 'UI/Dialog',
@@ -137,11 +138,26 @@ export const LongContent: Story = {
           </DialogDescription>
         </DialogHeader>
         <div className="py-4 space-y-4">
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-          <p>Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-          <p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-          <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.</p>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
+          <p>
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            nisi ut aliquip ex ea commodo consequat.
+          </p>
+          <p>
+            Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur.
+          </p>
+          <p>
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+            officia deserunt mollit anim id est laborum.
+          </p>
+          <p>
+            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
+            accusantium doloremque laudantium.
+          </p>
         </div>
         <DialogFooter>
           <DialogClose asChild>

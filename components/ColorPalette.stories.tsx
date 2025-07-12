@@ -1,8 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
-import { Button } from './ui/button';
 import { Moon, Sun } from 'lucide-react';
+
 import { useState } from 'react';
+
+import { Button } from './ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 
 const meta: Meta = {
   title: 'Design System/Color Palette',

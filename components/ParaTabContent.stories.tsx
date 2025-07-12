@@ -1,12 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { ParaTabContent } from './ParaTabContent';
+import { Archive, BookOpen, MapPin, Target } from 'lucide-react';
+
 import {
-  initialProjects,
-  initialAreas,
-  initialResources,
   initialArchived,
+  initialAreas,
+  initialProjects,
+  initialResources,
 } from '@/data/exampleData';
-import { Target, MapPin, BookOpen, Archive } from 'lucide-react';
+
+import { ParaTabContent } from './ParaTabContent';
 
 const meta: Meta<typeof ParaTabContent> = {
   title: 'Components/ParaTabContent',

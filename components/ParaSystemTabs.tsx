@@ -1,10 +1,12 @@
 'use client';
 
-import { useState } from 'react';
-import { ParaTabContent } from '@/components/ParaTabContent';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import type { ProgressItem } from '@/types/progress';
 import { Archive, BookOpen, LucideIcon, MapPin, Target } from 'lucide-react';
+
+import { useState } from 'react';
+
+import { ParaTabContent } from '@/components/ParaTabContent';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import type { ProgressItem } from '@/types/progress';
 import { cn } from '@/utils';
 
 type ProgressHook = {
@@ -12,9 +14,15 @@ type ProgressHook = {
   loading: boolean;
   error: string | null;
   addItem: (item: Omit<ProgressItem, 'icon' | 'id'>) => Promise<ProgressItem>;
-  updateItem: (id: string, updates: Partial<Omit<ProgressItem, 'icon' | 'id'>>) => Promise<ProgressItem>;
+  updateItem: (
+    id: string,
+    updates: Partial<Omit<ProgressItem, 'icon' | 'id'>>
+  ) => Promise<ProgressItem>;
   removeItem: (id: string) => Promise<void>;
-  moveItem: (id: string, newType: 'project' | 'area' | 'resource' | 'archived') => Promise<ProgressItem>;
+  moveItem: (
+    id: string,
+    newType: 'project' | 'area' | 'resource' | 'archived'
+  ) => Promise<ProgressItem>;
   refetch: () => void;
 };
 
@@ -57,7 +65,10 @@ export function ParaSystemTabs({
     }
   };
 
-  const addNewItem = async (type: string, newItem: Omit<ProgressItem, 'icon'>) => {
+  const addNewItem = async (
+    type: string,
+    newItem: Omit<ProgressItem, 'icon'>
+  ) => {
     const hook = getHookByType(type);
     try {
       await hook.addItem(newItem);
@@ -79,11 +90,14 @@ export function ParaSystemTabs({
     if (!itemToMove?.id) return;
 
     // Map type names to API types
-    const typeMap: Record<string, 'project' | 'area' | 'resource' | 'archived'> = {
-      'projects': 'project',
-      'areas': 'area', 
-      'resources': 'resource',
-      'archive': 'archived'
+    const typeMap: Record<
+      string,
+      'project' | 'area' | 'resource' | 'archived'
+    > = {
+      projects: 'project',
+      areas: 'area',
+      resources: 'resource',
+      archive: 'archived',
     };
 
     const newApiType = typeMap[toType];
@@ -108,7 +122,12 @@ export function ParaSystemTabs({
   };
 
   return (
-    <Tabs value={selectedTab} onValueChange={onTabChange} className="w-full" data-testid="para-system-tabs">
+    <Tabs
+      value={selectedTab}
+      onValueChange={onTabChange}
+      className="w-full"
+      data-testid="para-system-tabs"
+    >
       <TabsList className="grid w-full grid-cols-4 bg-card border border-border">
         <ParaTabTrigger value="projects" icon={Target} />
         <ParaTabTrigger value="areas" icon={MapPin} />

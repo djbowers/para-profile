@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+
 import { Input } from './input';
 
 const meta: Meta<typeof Input> = {
@@ -11,7 +12,16 @@ const meta: Meta<typeof Input> = {
   argTypes: {
     type: {
       control: 'select',
-      options: ['text', 'email', 'password', 'number', 'tel', 'url', 'search', 'file'],
+      options: [
+        'text',
+        'email',
+        'password',
+        'number',
+        'tel',
+        'url',
+        'search',
+        'file',
+      ],
     },
     disabled: {
       control: 'boolean',

@@ -1,4 +1,5 @@
 import { createClient } from '@supabase/supabase-js';
+
 import type { Database } from '../types/supabase';
 
 // Only create the client if we're in the browser and have the required environment variables

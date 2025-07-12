@@ -1,13 +1,15 @@
 'use client';
 
+import { Moon, Sun } from 'lucide-react';
+
 import React from 'react';
+
 import { useSession } from '../contexts/AuthContext';
 import { useTheme } from '../contexts/ThemeContext';
+import { signOut } from '../lib/auth';
 import { AuthForm } from './AuthForm';
 import { ParaProfile } from './ParaProfile';
 import { Button } from './ui/button';
-import { signOut } from '../lib/auth';
-import { Moon, Sun } from 'lucide-react';
 
 export function AuthenticatedPage() {
   const { session } = useSession();

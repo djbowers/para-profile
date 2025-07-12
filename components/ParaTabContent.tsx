@@ -1,11 +1,13 @@
 'use client';
 
-import type React from 'react';
-import { Badge } from '@/components/ui/badge';
-import { ProgressCard } from '@/components/ProgressCard';
-import { AddNewItemDialog } from '@/components/AddNewItemDialog';
-import type { ProgressItem } from '@/types/progress';
 import { LucideIcon } from 'lucide-react';
+
+import type React from 'react';
+
+import { AddNewItemDialog } from '@/components/AddNewItemDialog';
+import { ProgressCard } from '@/components/ProgressCard';
+import { Badge } from '@/components/ui/badge';
+import type { ProgressItem } from '@/types/progress';
 
 interface ParaTabContentProps {
   value: string;

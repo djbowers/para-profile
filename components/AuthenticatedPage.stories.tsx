@@ -1,6 +1,8 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { AuthenticatedPage } from './AuthenticatedPage';
+
 import { AuthProvider } from '@/contexts/AuthContext';
+
+import { AuthenticatedPage } from './AuthenticatedPage';
 
 const meta: Meta<typeof AuthenticatedPage> = {
   title: 'Components/AuthenticatedPage',
@@ -38,7 +40,11 @@ export const MockAuthenticatedState: Story = {
       };
 
       // Override the useSession hook for this story
-      const MockAuthProvider = ({ children }: { children: React.ReactNode }) => (
+      const MockAuthProvider = ({
+        children,
+      }: {
+        children: React.ReactNode;
+      }) => (
         <div>
           {/* Mock authenticated state */}
           <div className="min-h-screen bg-background">
@@ -50,7 +56,9 @@ export const MockAuthenticatedState: Story = {
                       Para Profile
                     </h1>
                     <p className="text-sm text-muted-foreground">
-                      Welcome, {mockSession.user.user_metadata?.full_name ?? mockSession.user.email}
+                      Welcome,{' '}
+                      {mockSession.user.user_metadata?.full_name ??
+                        mockSession.user.email}
                     </p>
                   </div>
                   <button className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2">
@@ -76,27 +84,44 @@ export const MockAuthenticatedState: Story = {
                         <h1 className="text-3xl font-bold text-foreground">
                           Productivity Master
                         </h1>
-                        <p className="text-muted-foreground">PARA System Practitioner</p>
+                        <p className="text-muted-foreground">
+                          PARA System Practitioner
+                        </p>
                       </div>
                       <div className="grid grid-cols-3 gap-4">
                         <div className="text-center">
-                          <div className="text-2xl font-bold text-primary">0</div>
-                          <div className="text-xs text-muted-foreground">Total Levels</div>
+                          <div className="text-2xl font-bold text-primary">
+                            0
+                          </div>
+                          <div className="text-xs text-muted-foreground">
+                            Total Levels
+                          </div>
                         </div>
                         <div className="text-center">
-                          <div className="text-2xl font-bold text-status-positive">0%</div>
-                          <div className="text-xs text-muted-foreground">Avg Progress</div>
+                          <div className="text-2xl font-bold text-status-positive">
+                            0%
+                          </div>
+                          <div className="text-xs text-muted-foreground">
+                            Avg Progress
+                          </div>
                         </div>
                         <div className="text-center">
-                          <div className="text-2xl font-bold text-chart-3">0</div>
-                          <div className="text-xs text-muted-foreground">Active Items</div>
+                          <div className="text-2xl font-bold text-chart-3">
+                            0
+                          </div>
+                          <div className="text-xs text-muted-foreground">
+                            Active Items
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
                 <div className="text-center text-muted-foreground py-8">
-                  <p>This is a mock authenticated view showing the main application interface.</p>
+                  <p>
+                    This is a mock authenticated view showing the main
+                    application interface.
+                  </p>
                   {children}
                 </div>
               </div>
@@ -118,18 +143,26 @@ export const UnauthenticatedState: Story = {
   decorators: [
     (Story) => {
       // Mock unauthenticated state
-      const MockAuthProvider = ({ children }: { children: React.ReactNode }) => (
+      const MockAuthProvider = ({
+        children,
+      }: {
+        children: React.ReactNode;
+      }) => (
         <div className="min-h-screen flex items-center justify-center bg-background">
           <div className="w-full max-w-md mx-auto rounded-xl border bg-card text-card-foreground shadow">
             <div className="flex flex-col space-y-1.5 p-6">
-              <h3 className="text-2xl font-semibold leading-none tracking-tight">Sign In</h3>
+              <h3 className="text-2xl font-semibold leading-none tracking-tight">
+                Sign In
+              </h3>
               <p className="text-sm text-muted-foreground">
                 Sign in to your account to continue
               </p>
             </div>
             <div className="p-6 pt-0">
               <div className="text-center text-muted-foreground">
-                <p>This is a mock unauthenticated view showing the sign-in form.</p>
+                <p>
+                  This is a mock unauthenticated view showing the sign-in form.
+                </p>
                 {children}
               </div>
             </div>
@@ -150,7 +183,11 @@ export const LoadingState: Story = {
   decorators: [
     (Story) => {
       // Mock loading state
-      const MockAuthProvider = ({ children }: { children: React.ReactNode }) => (
+      const MockAuthProvider = ({
+        children,
+      }: {
+        children: React.ReactNode;
+      }) => (
         <div className="min-h-screen flex items-center justify-center bg-background">
           <div className="text-center">
             <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>

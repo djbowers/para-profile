@@ -1,4 +1,5 @@
-import { delay, http, HttpResponse } from 'msw';
+import { HttpResponse, delay, http } from 'msw';
+
 import { minimalMockData } from './mockData';
 
 // Supabase API base URL

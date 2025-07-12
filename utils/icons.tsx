@@ -1,16 +1,17 @@
-import type React from 'react';
 import {
-  Zap,
-  Target,
-  Star,
-  Shield,
-  Heart,
-  Trophy,
-  MapPin,
-  Brain,
-  Sword,
   Archive,
+  Brain,
+  Heart,
+  MapPin,
+  Shield,
+  Star,
+  Sword,
+  Target,
+  Trophy,
+  Zap,
 } from 'lucide-react';
+
+import type React from 'react';
 
 export const getIconByCategory = (category: string): React.ReactNode => {
   const iconMap: { [key: string]: React.ReactNode } = {

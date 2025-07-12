@@ -1,16 +1,18 @@
-import React from 'react';
 import {
-  Target,
-  MapPin,
   Archive,
-  Star,
-  Zap,
-  Trophy,
-  Sword,
-  Shield,
-  Heart,
   Brain,
+  Heart,
+  MapPin,
+  Shield,
+  Star,
+  Sword,
+  Target,
+  Trophy,
+  Zap,
 } from 'lucide-react';
+
+import React from 'react';
+
 import type { ProgressItem } from '../types/progress';
 
 export const initialProjects: ProgressItem[] = [

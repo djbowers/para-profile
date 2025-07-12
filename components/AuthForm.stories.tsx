@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+
 import { AuthForm } from './AuthForm';
 
 const meta: Meta<typeof AuthForm> = {
@@ -36,7 +37,8 @@ export const WithSuccessCallback: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'This story shows the AuthForm with a success callback that displays an alert when authentication is successful.',
+        story:
+          'This story shows the AuthForm with a success callback that displays an alert when authentication is successful.',
       },
     },
   },
@@ -51,7 +53,8 @@ export const SignInFlow: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Default view shows the sign-in form. Users can enter their email to receive a magic link.',
+        story:
+          'Default view shows the sign-in form. Users can enter their email to receive a magic link.',
       },
     },
   },
@@ -66,7 +69,8 @@ export const SignUpFlow: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Click "Don&apos;t have an account? Sign up" to see the sign-up form with the additional name field.',
+        story:
+          'Click "Don&apos;t have an account? Sign up" to see the sign-up form with the additional name field.',
       },
     },
   },
@@ -81,7 +85,8 @@ export const EmailSentState: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'After submitting the form, users see this state with options to use the magic link or enter a verification code.',
+        story:
+          'After submitting the form, users see this state with options to use the magic link or enter a verification code.',
       },
     },
   },
@@ -96,7 +101,8 @@ export const InteractiveDemo: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Try the full authentication flow: toggle between sign-in and sign-up, submit the form, and handle the email verification step.',
+        story:
+          'Try the full authentication flow: toggle between sign-in and sign-up, submit the form, and handle the email verification step.',
       },
     },
   },

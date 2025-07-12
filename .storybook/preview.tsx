@@ -1,9 +1,11 @@
 import type { Preview } from '@storybook/nextjs-vite';
-import '../app/globals.css';
 import { initialize, mswLoader } from 'msw-storybook-addon';
-import { handlers } from '../mocks/handlers';
+
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { MockedAuthProvider } from '@/mocks/MockAuthProvider';
+
+import '../app/globals.css';
+import { handlers } from '../mocks/handlers';
 
 // Initialize MSW
 initialize({

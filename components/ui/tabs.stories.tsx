@@ -1,6 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from './tabs';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './card';
+
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from './card';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from './tabs';
 
 const meta: Meta<typeof Tabs> = {
   title: 'UI/Tabs',
@@ -47,7 +54,8 @@ export const WithCards: Story = {
           <CardHeader>
             <CardTitle>Account</CardTitle>
             <CardDescription>
-              Make changes to your account here. Click save when you&apos;re done.
+              Make changes to your account here. Click save when you&apos;re
+              done.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -60,7 +68,8 @@ export const WithCards: Story = {
           <CardHeader>
             <CardTitle>Password</CardTitle>
             <CardDescription>
-              Change your password here. After saving, you&apos;ll be logged out.
+              Change your password here. After saving, you&apos;ll be logged
+              out.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -113,7 +122,9 @@ export const DisabledTab: Story = {
     <Tabs defaultValue="tab1" className="w-[400px]">
       <TabsList>
         <TabsTrigger value="tab1">Active Tab</TabsTrigger>
-        <TabsTrigger value="tab2" disabled>Disabled Tab</TabsTrigger>
+        <TabsTrigger value="tab2" disabled>
+          Disabled Tab
+        </TabsTrigger>
         <TabsTrigger value="tab3">Another Tab</TabsTrigger>
       </TabsList>
       <TabsContent value="tab1">
@@ -134,9 +145,15 @@ export const Vertical: Story = {
     <Tabs defaultValue="tab1" orientation="vertical" className="w-[400px]">
       <div className="flex gap-4">
         <TabsList className="flex-col h-auto">
-          <TabsTrigger value="tab1" className="w-full">Tab 1</TabsTrigger>
-          <TabsTrigger value="tab2" className="w-full">Tab 2</TabsTrigger>
-          <TabsTrigger value="tab3" className="w-full">Tab 3</TabsTrigger>
+          <TabsTrigger value="tab1" className="w-full">
+            Tab 1
+          </TabsTrigger>
+          <TabsTrigger value="tab2" className="w-full">
+            Tab 2
+          </TabsTrigger>
+          <TabsTrigger value="tab3" className="w-full">
+            Tab 3
+          </TabsTrigger>
         </TabsList>
         <div className="flex-1">
           <TabsContent value="tab1" className="mt-0">

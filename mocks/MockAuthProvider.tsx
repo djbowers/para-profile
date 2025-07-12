@@ -1,7 +1,9 @@
 import { Session } from '@supabase/supabase-js';
+
 import React, { useEffect, useState } from 'react';
 
 import { SessionContext } from '@/contexts/AuthContext';
+
 import { createMockSession } from './mockData';
 
 interface MockedAuthProviderProps {

@@ -1,4 +1,5 @@
 import type React from 'react';
+
 import { Database } from './supabase';
 
 export interface ProgressItem {

@@ -1,6 +1,7 @@
+import { composeStories } from '@storybook/react';
 import { render, screen, waitFor } from '@testing-library/react';
 import { describe, expect, it } from 'vitest';
-import { composeStories } from '@storybook/react';
+
 import * as stories from './ParaProfile.stories';
 
 const { Default, Empty, Loading, Error, Minimal } = composeStories(stories);

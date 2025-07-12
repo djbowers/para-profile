@@ -1,7 +1,14 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { ParaSystemTabs } from './ParaSystemTabs';
-import { initialProjects, initialAreas, initialResources, initialArchived } from '@/data/exampleData';
+
+import {
+  initialArchived,
+  initialAreas,
+  initialProjects,
+  initialResources,
+} from '@/data/exampleData';
 import type { ProgressItem } from '@/types/progress';
+
+import { ParaSystemTabs } from './ParaSystemTabs';
 
 const meta: Meta<typeof ParaSystemTabs> = {
   title: 'Components/ParaSystemTabs',
@@ -30,16 +37,22 @@ const createMockHook = (items: ProgressItem[]) => ({
     console.log('Adding item:', item);
     return { ...item, id: Math.random().toString() } as ProgressItem;
   },
-  updateItem: async (id: string, updates: Partial<Omit<ProgressItem, 'icon' | 'id'>>) => {
+  updateItem: async (
+    id: string,
+    updates: Partial<Omit<ProgressItem, 'icon' | 'id'>>
+  ) => {
     console.log('Updating item:', id, updates);
-    return items.find(item => item.id === id)!;
+    return items.find((item) => item.id === id)!;
   },
   removeItem: async (id: string) => {
     console.log('Removing item:', id);
   },
-  moveItem: async (id: string, newType: 'project' | 'area' | 'resource' | 'archived') => {
+  moveItem: async (
+    id: string,
+    newType: 'project' | 'area' | 'resource' | 'archived'
+  ) => {
     console.log('Moving item:', id, 'to', newType);
-    return items.find(item => item.id === id)!;
+    return items.find((item) => item.id === id)!;
   },
   refetch: () => {
     console.log('Refetching data');
@@ -126,7 +139,11 @@ export const ManyItemsPerTab: Story = {
   args: {
     selectedTab: 'projects',
     onTabChange: (tab: string) => console.log('Tab changed to:', tab),
-    projectsHook: createMockHook([...initialProjects, ...initialProjects, ...initialProjects]),
+    projectsHook: createMockHook([
+      ...initialProjects,
+      ...initialProjects,
+      ...initialProjects,
+    ]),
     areasHook: createMockHook([...initialAreas, ...initialAreas]),
     resourcesHook: createMockHook([...initialResources, ...initialResources]),
     archivedHook: createMockHook([...initialArchived, ...initialArchived]),

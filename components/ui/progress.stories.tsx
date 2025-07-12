@@ -1,7 +1,9 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+
 import * as React from 'react';
-import { Progress } from './progress';
+
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
+import { Progress } from './progress';
 
 const meta: Meta<typeof Progress> = {
   title: 'UI/Progress',

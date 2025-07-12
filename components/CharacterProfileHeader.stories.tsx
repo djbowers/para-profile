@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+
 import { CharacterProfileHeader } from './CharacterProfileHeader';
 
 const meta: Meta<typeof CharacterProfileHeader> = {
