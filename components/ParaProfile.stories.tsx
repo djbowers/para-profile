@@ -1,11 +1,12 @@
 import { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { ParaProfile } from './ParaProfile';
+
 import {
-  initialProjects,
-  initialAreas,
-  initialResources,
-  initialArchived,
-} from '@/data/exampleData';
+  emptyHandlers,
+  errorHandlers,
+  loadingHandlers,
+  minimalHandlers,
+} from '../mocks/storyHandlers';
+import { ParaProfile } from './ParaProfile';
 
 const meta = {
   title: 'Components/ParaProfile',
@@ -14,89 +15,47 @@ const meta = {
     layout: 'fullscreen',
   },
   tags: ['autodocs'],
-  argTypes: {
-    initialProjects: {
-      control: 'object',
-      description: 'Initial projects data',
-    },
-    initialAreas: {
-      control: 'object',
-      description: 'Initial areas data',
-    },
-    initialResources: {
-      control: 'object',
-      description: 'Initial resources data',
-    },
-    initialArchived: {
-      control: 'object',
-      description: 'Initial archived data',
-    },
-  },
 } satisfies Meta<typeof ParaProfile>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {
-  args: {
-    initialProjects,
-    initialAreas,
-    initialResources,
-    initialArchived,
-  },
-};
+// Default story with full mock data (from MSW handlers)
+export const Default: Story = {};
 
+// Story with empty data
 export const Empty: Story = {
-  args: {
-    initialProjects: [],
-    initialAreas: [],
-    initialResources: [],
-    initialArchived: [],
+  parameters: {
+    msw: {
+      handlers: emptyHandlers,
+    },
   },
 };
 
-export const ProjectsOnly: Story = {
-  args: {
-    initialProjects,
-    initialAreas: [],
-    initialResources: [],
-    initialArchived: [],
+// Loading state story
+export const Loading: Story = {
+  parameters: {
+    msw: {
+      handlers: loadingHandlers,
+    },
   },
 };
 
-export const AreasOnly: Story = {
-  args: {
-    initialProjects: [],
-    initialAreas,
-    initialResources: [],
-    initialArchived: [],
+// Error state story
+export const Error: Story = {
+  parameters: {
+    msw: {
+      handlers: errorHandlers,
+    },
   },
 };
 
-export const ResourcesOnly: Story = {
-  args: {
-    initialProjects: [],
-    initialAreas: [],
-    initialResources,
-    initialArchived: [],
-  },
-};
-
-export const ArchiveOnly: Story = {
-  args: {
-    initialProjects: [],
-    initialAreas: [],
-    initialResources: [],
-    initialArchived,
-  },
-};
-
-export const MinimalData: Story = {
-  args: {
-    initialProjects: [initialProjects[0]],
-    initialAreas: [initialAreas[0]],
-    initialResources: [initialResources[0]],
-    initialArchived: [initialArchived[0]],
+// Minimal data story (one item per category)
+export const Minimal: Story = {
+  parameters: {
+    msw: {
+      handlers: minimalHandlers,
+    },
   },
 };

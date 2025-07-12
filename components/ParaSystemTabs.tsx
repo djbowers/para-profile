@@ -1,36 +1,47 @@
 'use client';
 
-import { useState } from 'react';
-import { ParaTabContent } from '@/components/ParaTabContent';
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
-import type { ProgressItem } from '@/types/progress';
 import { Archive, BookOpen, LucideIcon, MapPin, Target } from 'lucide-react';
-import { cn, getDataByType, setDataByType } from '@/utils';
+
+import { useState } from 'react';
+
+import { ParaTabContent } from '@/components/ParaTabContent';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import type { ProgressItem } from '@/types/progress';
+import { cn } from '@/utils';
+
+type ProgressHook = {
+  items: ProgressItem[];
+  loading: boolean;
+  error: string | null;
+  addItem: (item: Omit<ProgressItem, 'icon' | 'id'>) => Promise<ProgressItem>;
+  updateItem: (
+    id: string,
+    updates: Partial<Omit<ProgressItem, 'icon' | 'id'>>
+  ) => Promise<ProgressItem>;
+  removeItem: (id: string) => Promise<void>;
+  moveItem: (
+    id: string,
+    newType: 'project' | 'area' | 'resource' | 'archived'
+  ) => Promise<ProgressItem>;
+  refetch: () => void;
+};
 
 interface ParaSystemTabsProps {
   selectedTab: string;
   onTabChange: (value: string) => void;
-  projects: ProgressItem[];
-  areas: ProgressItem[];
-  resources: ProgressItem[];
-  archived: ProgressItem[];
-  onProjectsChange: (projects: ProgressItem[]) => void;
-  onAreasChange: (areas: ProgressItem[]) => void;
-  onResourcesChange: (resources: ProgressItem[]) => void;
-  onArchivedChange: (archived: ProgressItem[]) => void;
+  projectsHook: ProgressHook;
+  areasHook: ProgressHook;
+  resourcesHook: ProgressHook;
+  archivedHook: ProgressHook;
 }
 
 export function ParaSystemTabs({
   selectedTab,
   onTabChange,
-  projects,
-  areas,
-  resources,
-  archived,
-  onProjectsChange,
-  onAreasChange,
-  onResourcesChange,
-  onArchivedChange,
+  projectsHook,
+  areasHook,
+  resourcesHook,
+  archivedHook,
 }: ParaSystemTabsProps) {
   const [draggedItem, setDraggedItem] = useState<{
     item: ProgressItem;
@@ -39,62 +50,67 @@ export function ParaSystemTabs({
   } | null>(null);
   const [dragOverType, setDragOverType] = useState<string | null>(null);
 
-  const addNewItem = (type: string, newItem: Omit<ProgressItem, 'icon'>) => {
-    const currentData = getDataByType(
-      type,
-      projects,
-      areas,
-      resources,
-      archived
-    );
-    setDataByType(
-      type,
-      [...currentData, newItem as ProgressItem],
-      onProjectsChange,
-      onAreasChange,
-      onResourcesChange,
-      onArchivedChange
-    );
+  const getHookByType = (type: string) => {
+    switch (type) {
+      case 'projects':
+        return projectsHook;
+      case 'areas':
+        return areasHook;
+      case 'resources':
+        return resourcesHook;
+      case 'archive':
+        return archivedHook;
+      default:
+        throw new Error(`Unknown type: ${type}`);
+    }
   };
 
-  const moveItemBetweenGroups = (
+  const addNewItem = async (
+    type: string,
+    newItem: Omit<ProgressItem, 'icon'>
+  ) => {
+    const hook = getHookByType(type);
+    try {
+      await hook.addItem(newItem);
+    } catch (error) {
+      console.error('Error adding item:', error);
+    }
+  };
+
+  const moveItemBetweenGroups = async (
     fromType: string,
     fromIndex: number,
     toType: string
   ) => {
     if (fromType === toType) return;
 
-    const fromData = getDataByType(
-      fromType,
-      projects,
-      areas,
-      resources,
-      archived
-    );
-    const toData = getDataByType(toType, projects, areas, resources, archived);
-    const itemToMove = fromData[fromIndex];
+    const fromHook = getHookByType(fromType);
+    const itemToMove = fromHook.items[fromIndex];
 
-    // Remove from source
-    const newFromData = fromData.filter((_, i) => i !== fromIndex);
-    setDataByType(
-      fromType,
-      newFromData,
-      onProjectsChange,
-      onAreasChange,
-      onResourcesChange,
-      onArchivedChange
-    );
+    if (!itemToMove?.id) return;
 
-    // Add to destination
-    const newToData = [...toData, itemToMove];
-    setDataByType(
-      toType,
-      newToData,
-      onProjectsChange,
-      onAreasChange,
-      onResourcesChange,
-      onArchivedChange
-    );
+    // Map type names to API types
+    const typeMap: Record<
+      string,
+      'project' | 'area' | 'resource' | 'archived'
+    > = {
+      projects: 'project',
+      areas: 'area',
+      resources: 'resource',
+      archive: 'archived',
+    };
+
+    const newApiType = typeMap[toType];
+    if (!newApiType) return;
+
+    try {
+      await fromHook.moveItem(itemToMove.id, newApiType);
+      // Refresh the destination hook to show the moved item
+      const toHook = getHookByType(toType);
+      toHook.refetch();
+    } catch (error) {
+      console.error('Error moving item:', error);
+    }
   };
 
   const handleDragStateChange = (
@@ -106,7 +122,12 @@ export function ParaSystemTabs({
   };
 
   return (
-    <Tabs value={selectedTab} onValueChange={onTabChange} className="w-full">
+    <Tabs
+      value={selectedTab}
+      onValueChange={onTabChange}
+      className="w-full"
+      data-testid="para-system-tabs"
+    >
       <TabsList className="grid w-full grid-cols-4 bg-card border border-border">
         <ParaTabTrigger value="projects" icon={Target} />
         <ParaTabTrigger value="areas" icon={MapPin} />
@@ -122,10 +143,13 @@ export function ParaSystemTabs({
           draggedItem={draggedItem}
           icon={Target}
           iconColor="text-status-positive"
-          items={projects}
+          items={projectsHook.items}
+          loading={projectsHook.loading}
+          error={projectsHook.error}
           onAdd={(newItem) => addNewItem('projects', newItem)}
           onDragStateChange={handleDragStateChange}
-          onItemsChange={onProjectsChange}
+          onUpdate={projectsHook.updateItem}
+          onRemove={projectsHook.removeItem}
           onMoveItem={moveItemBetweenGroups}
           title="Active Projects"
           value="projects"
@@ -140,10 +164,13 @@ export function ParaSystemTabs({
           draggedItem={draggedItem}
           icon={MapPin}
           iconColor="text-status-info"
-          items={areas}
+          items={areasHook.items}
+          loading={areasHook.loading}
+          error={areasHook.error}
           onAdd={(newItem) => addNewItem('areas', newItem)}
           onDragStateChange={handleDragStateChange}
-          onItemsChange={onAreasChange}
+          onUpdate={areasHook.updateItem}
+          onRemove={areasHook.removeItem}
           onMoveItem={moveItemBetweenGroups}
           title="Life Areas"
           value="areas"
@@ -158,10 +185,13 @@ export function ParaSystemTabs({
           draggedItem={draggedItem}
           icon={BookOpen}
           iconColor="text-status-highlight"
-          items={resources}
+          items={resourcesHook.items}
+          loading={resourcesHook.loading}
+          error={resourcesHook.error}
           onAdd={(newItem) => addNewItem('resources', newItem)}
           onDragStateChange={handleDragStateChange}
-          onItemsChange={onResourcesChange}
+          onUpdate={resourcesHook.updateItem}
+          onRemove={resourcesHook.removeItem}
           onMoveItem={moveItemBetweenGroups}
           title="Resources"
           value="resources"
@@ -176,10 +206,13 @@ export function ParaSystemTabs({
           draggedItem={draggedItem}
           icon={Archive}
           iconColor="text-status-neutral"
-          items={archived}
+          items={archivedHook.items}
+          loading={archivedHook.loading}
+          error={archivedHook.error}
           onAdd={(newItem) => addNewItem('archive', newItem)}
           onDragStateChange={handleDragStateChange}
-          onItemsChange={onArchivedChange}
+          onUpdate={archivedHook.updateItem}
+          onRemove={archivedHook.removeItem}
           onMoveItem={moveItemBetweenGroups}
           title="Archive"
           value="archive"

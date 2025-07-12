@@ -1,6 +1,13 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+
+import {
+  initialArchived,
+  initialAreas,
+  initialProjects,
+  initialResources,
+} from '@/data/exampleData';
+
 import { ProgressCard } from './ProgressCard';
-import { initialProjects, initialAreas, initialResources, initialArchived } from '@/data/exampleData';
 
 const meta: Meta<typeof ProgressCard> = {
   title: 'Components/ProgressCard',

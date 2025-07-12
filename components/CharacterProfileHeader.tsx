@@ -1,8 +1,9 @@
 'use client';
 
 import type React from 'react';
-import { Card, CardContent } from '@/components/ui/card';
+
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Card, CardContent } from '@/components/ui/card';
 import { getLevelColor, getProgressColor } from '@/utils/colors';
 
 interface CharacterProfileHeaderProps {
@@ -17,7 +18,10 @@ export function CharacterProfileHeader({
   activeItemsCount,
 }: CharacterProfileHeaderProps) {
   return (
-    <Card className="bg-card border-border">
+    <Card
+      className="bg-card border-border"
+      data-testid="character-profile-header"
+    >
       <CardContent className="p-6">
         <div className="flex items-center gap-6">
           <div className="relative">

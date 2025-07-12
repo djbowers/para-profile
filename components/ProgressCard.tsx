@@ -1,5 +1,21 @@
 'use client';
 
+import {
+  Archive,
+  ArrowRight,
+  BookOpen,
+  Edit,
+  MapPin,
+  MoreVertical,
+  Save,
+  Target,
+  Trash2,
+  X,
+} from 'lucide-react';
+
+import type React from 'react';
+import { useState } from 'react';
+
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -20,21 +36,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import {
-  Archive,
-  ArrowRight,
-  BookOpen,
-  Edit,
-  MapPin,
-  MoreVertical,
-  Save,
-  Target,
-  Trash2,
-  X,
-} from 'lucide-react';
-import type React from 'react';
-import { useState } from 'react';
-
 import type { ProgressItem } from '@/types/progress';
 import { getIconByCategory, getLevelColor } from '@/utils';
 

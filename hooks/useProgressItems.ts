@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
+
 import { useSession } from '../contexts/AuthContext';
 import {
-  getProgressItems,
   createProgressItem,
-  updateProgressItem,
   deleteProgressItem,
+  getProgressItems,
   moveProgressItem,
+  updateProgressItem,
 } from '../lib/api';
 import type { ProgressItem } from '../types/progress';
 

@@ -1,7 +1,9 @@
 'use client';
 
 import { Session } from '@supabase/supabase-js';
+
 import React, { createContext, useContext, useEffect, useState } from 'react';
+
 import { supabase } from '../lib/supabase';
 
 interface AuthContextType {
@@ -9,7 +11,7 @@ interface AuthContextType {
   loading: boolean;
 }
 
-const SessionContext = createContext<AuthContextType>(undefined!);
+export const SessionContext = createContext<AuthContextType>(undefined!);
 
 export function useSession() {
   return useContext(SessionContext);

@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
+
 import { AddNewItemDialog } from './AddNewItemDialog';
 
 const meta: Meta<typeof AddNewItemDialog> = {
@@ -70,7 +71,8 @@ export const InteractiveExample: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Click the button to open the dialog and try adding a new item. The form will show an alert with the data when submitted.',
+        story:
+          'Click the button to open the dialog and try adding a new item. The form will show an alert with the data when submitted.',
       },
     },
   },

@@ -1,18 +1,20 @@
-import { supabase } from './supabase';
-import type { ProgressItem } from '../types/progress';
 import {
-  Target,
-  MapPin,
   Archive,
-  Star,
-  Zap,
-  Trophy,
-  Sword,
-  Shield,
-  Heart,
   Brain,
+  Heart,
+  MapPin,
+  Shield,
+  Star,
+  Sword,
+  Target,
+  Trophy,
+  Zap,
 } from 'lucide-react';
+
 import React from 'react';
+
+import type { ProgressItem } from '../types/progress';
+import { supabase } from './supabase';
 
 // Icon mapping for database storage
 const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
