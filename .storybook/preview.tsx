@@ -1,11 +1,10 @@
 import type { Preview } from '@storybook/nextjs-vite';
 import { initialize, mswLoader } from 'msw-storybook-addon';
 
+import '@/app/globals.css';
 import { ThemeProvider } from '@/contexts/ThemeContext';
 import { MockedAuthProvider } from '@/mocks/MockAuthProvider';
-
-import '../app/globals.css';
-import { handlers } from '../mocks/handlers';
+import { handlers } from '@/mocks/handlers';
 
 // Initialize MSW
 initialize({
@@ -40,16 +39,6 @@ const preview: Preview = {
 
   loaders: [mswLoader],
 
-  // Set up environment variables for Storybook
-  beforeEach: () => {
-    // Set mock Supabase environment variables
-    if (typeof window !== 'undefined') {
-      process.env.NEXT_PUBLIC_SUPABASE_URL =
-        'https://mock-supabase.supabase.co';
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY = 'mock-anon-key';
-      process.env.STORYBOOK = 'true';
-    }
-  },
   decorators: [
     (Story) => {
       return (

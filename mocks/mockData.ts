@@ -1,15 +1,37 @@
+import { Session } from '@supabase/supabase-js';
+
 import { DatabaseProgressItem } from '@/types/progress';
 
 // Constants for consistent mock data
-export const MOCK_USER_ID = 'test-user-id';
+export const MOCK_USER_ID = '123e4567-e89b-12d3-a456-426614174000';
 export const MOCK_USER_EMAIL = 'test@example.com';
 export const MOCK_USER_NAME = 'Test User';
+
+export const MOCK_USER_SESSION: Session = {
+  access_token: 'mock-access-token',
+  token_type: 'bearer',
+  expires_in: 3600,
+  expires_at: Date.now() / 1000 + 3600,
+  refresh_token: 'mock-refresh-token',
+  user: {
+    id: MOCK_USER_ID,
+    email: MOCK_USER_EMAIL,
+    app_metadata: {},
+    user_metadata: {
+      full_name: MOCK_USER_NAME,
+    },
+    aud: 'authenticated',
+    created_at: '2024-01-01T00:00:00Z',
+    updated_at: '2024-01-01T00:00:00Z',
+    is_anonymous: false,
+  },
+};
 
 // Complete mock progress items dataset
 export const mockProgressItems: Array<DatabaseProgressItem> = [
   // Projects (4 items)
   {
-    id: '1',
+    id: '550e8400-e29b-41d4-a716-446655440001',
     user_id: MOCK_USER_ID,
     name: 'Mobile App Development',
     progress: 75,
@@ -23,7 +45,7 @@ export const mockProgressItems: Array<DatabaseProgressItem> = [
     updated_at: '2024-01-01T00:00:00Z',
   },
   {
-    id: '2',
+    id: '550e8400-e29b-41d4-a716-446655440002',
     user_id: MOCK_USER_ID,
     name: 'Marketing Campaign',
     progress: 45,
@@ -37,7 +59,7 @@ export const mockProgressItems: Array<DatabaseProgressItem> = [
     updated_at: '2024-01-01T00:00:00Z',
   },
   {
-    id: '3',
+    id: '550e8400-e29b-41d4-a716-446655440003',
     user_id: MOCK_USER_ID,
     name: 'Website Redesign',
     progress: 90,
@@ -51,7 +73,7 @@ export const mockProgressItems: Array<DatabaseProgressItem> = [
     updated_at: '2024-01-01T00:00:00Z',
   },
   {
-    id: '4',
+    id: '550e8400-e29b-41d4-a716-446655440004',
     user_id: MOCK_USER_ID,
     name: 'Team Training',
     progress: 30,
@@ -67,7 +89,7 @@ export const mockProgressItems: Array<DatabaseProgressItem> = [
 
   // Areas (4 items)
   {
-    id: '5',
+    id: '550e8400-e29b-41d4-a716-446655440005',
     user_id: MOCK_USER_ID,
     name: 'Health & Fitness',
     progress: 65,
@@ -81,7 +103,7 @@ export const mockProgressItems: Array<DatabaseProgressItem> = [
     updated_at: '2024-01-01T00:00:00Z',
   },
   {
-    id: '6',
+    id: '550e8400-e29b-41d4-a716-446655440006',
     user_id: MOCK_USER_ID,
     name: 'Financial Management',
     progress: 80,
@@ -95,7 +117,7 @@ export const mockProgressItems: Array<DatabaseProgressItem> = [
     updated_at: '2024-01-01T00:00:00Z',
   },
   {
-    id: '7',
+    id: '550e8400-e29b-41d4-a716-446655440007',
     user_id: MOCK_USER_ID,
     name: 'Professional Network',
     progress: 55,
@@ -109,7 +131,7 @@ export const mockProgressItems: Array<DatabaseProgressItem> = [
     updated_at: '2024-01-01T00:00:00Z',
   },
   {
-    id: '8',
+    id: '550e8400-e29b-41d4-a716-446655440008',
     user_id: MOCK_USER_ID,
     name: 'Learning & Development',
     progress: 85,
@@ -125,7 +147,7 @@ export const mockProgressItems: Array<DatabaseProgressItem> = [
 
   // Resources (4 items)
   {
-    id: '9',
+    id: '550e8400-e29b-41d4-a716-446655440009',
     user_id: MOCK_USER_ID,
     name: 'AI & Machine Learning',
     progress: 40,
@@ -139,7 +161,7 @@ export const mockProgressItems: Array<DatabaseProgressItem> = [
     updated_at: '2024-01-01T00:00:00Z',
   },
   {
-    id: '10',
+    id: '550e8400-e29b-41d4-a716-446655440010',
     user_id: MOCK_USER_ID,
     name: 'Investment Strategies',
     progress: 60,
@@ -153,7 +175,7 @@ export const mockProgressItems: Array<DatabaseProgressItem> = [
     updated_at: '2024-01-01T00:00:00Z',
   },
   {
-    id: '11',
+    id: '550e8400-e29b-41d4-a716-446655440011',
     user_id: MOCK_USER_ID,
     name: 'Design Principles',
     progress: 70,
@@ -167,7 +189,7 @@ export const mockProgressItems: Array<DatabaseProgressItem> = [
     updated_at: '2024-01-01T00:00:00Z',
   },
   {
-    id: '12',
+    id: '550e8400-e29b-41d4-a716-446655440012',
     user_id: MOCK_USER_ID,
     name: 'Leadership Skills',
     progress: 50,
@@ -183,7 +205,7 @@ export const mockProgressItems: Array<DatabaseProgressItem> = [
 
   // Archived (2 items)
   {
-    id: '13',
+    id: '550e8400-e29b-41d4-a716-446655440013',
     user_id: MOCK_USER_ID,
     name: 'Old Website Project',
     progress: 100,
@@ -197,7 +219,7 @@ export const mockProgressItems: Array<DatabaseProgressItem> = [
     updated_at: '2024-01-01T00:00:00Z',
   },
   {
-    id: '14',
+    id: '550e8400-e29b-41d4-a716-446655440014',
     user_id: MOCK_USER_ID,
     name: 'Previous Marketing Campaign',
     progress: 100,
@@ -234,7 +256,10 @@ export const minimalMockData: Record<string, DatabaseProgressItem[]> = {
 
 // Helper to get next available ID for new items
 let nextId = 15;
-export const getNextId = () => String(nextId++);
+export const getNextId = () => {
+  const uuid = `550e8400-e29b-41d4-a716-${String(nextId++).padStart(12, '0')}`;
+  return uuid;
+};
 
 // Mock session data
 export const createMockSession = () => ({
