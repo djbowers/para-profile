@@ -15,8 +15,14 @@ interface ParaTabContentProps {
   iconColor: string;
   borderColor: string;
   items: ProgressItem[];
-  onItemsChange: (items: ProgressItem[]) => void;
+  loading?: boolean;
+  error?: string | null;
   onAdd: (newItem: Omit<ProgressItem, 'icon'>) => void;
+  onUpdate: (
+    id: string,
+    updates: Partial<Omit<ProgressItem, 'icon' | 'id'>>
+  ) => Promise<ProgressItem>;
+  onRemove: (id: string) => Promise<void>;
   draggedItem: {
     item: ProgressItem;
     type: string;
@@ -38,22 +44,40 @@ export function ParaTabContent({
   iconColor,
   borderColor,
   items,
-  onItemsChange,
+  loading,
+  error,
   onAdd,
+  onUpdate,
+  onRemove,
   draggedItem,
   dragOverType,
   onDragStateChange,
   onMoveItem,
 }: ParaTabContentProps) {
-  const updateItem = (index: number, updatedItem: ProgressItem) => {
-    const newItems = [...items];
-    newItems[index] = updatedItem;
-    onItemsChange(newItems);
+  const updateItem = async (_: number, updatedItem: ProgressItem) => {
+    if (!updatedItem.id) return;
+    try {
+      await onUpdate(updatedItem.id, {
+        name: updatedItem.name,
+        progress: updatedItem.progress,
+        level: updatedItem.level,
+        xp: updatedItem.xp,
+        maxXp: updatedItem.maxXp,
+        category: updatedItem.category,
+      });
+    } catch (error) {
+      console.error('Error updating item:', error);
+    }
   };
 
-  const deleteItem = (index: number) => {
-    const newItems = items.filter((_, i) => i !== index);
-    onItemsChange(newItems);
+  const deleteItem = async (index: number) => {
+    const item = items[index];
+    if (!item?.id) return;
+    try {
+      await onRemove(item.id);
+    } catch (error) {
+      console.error('Error deleting item:', error);
+    }
   };
 
   const handleDragStart = (
@@ -84,20 +108,16 @@ export function ParaTabContent({
     }
   };
 
-  const handleDrop = (e: React.DragEvent, targetIndex?: number) => {
+  const handleDrop = (e: React.DragEvent) => {
     e.preventDefault();
     if (!draggedItem) return;
 
     const { type: sourceType, index: sourceIndex } = draggedItem;
 
     if (sourceType === value) {
-      // Reordering within same group
-      if (targetIndex !== undefined && sourceIndex !== targetIndex) {
-        const newItems = [...items];
-        const [movedItem] = newItems.splice(sourceIndex, 1);
-        newItems.splice(targetIndex, 0, movedItem);
-        onItemsChange(newItems);
-      }
+      // Reordering within same group - for now, just skip this functionality
+      // This would need a more complex API to support reordering within a category
+      console.log('Reordering within same group not implemented yet');
     } else {
       // Moving from another group - use parent's moveItem function
       onMoveItem(sourceType, sourceIndex, value);
@@ -117,12 +137,23 @@ export function ParaTabContent({
           <Badge variant="outline" className={`${iconColor} border-current`}>
             {description}
           </Badge>
+          {loading && (
+            <Badge variant="secondary" className="text-xs">
+              Loading...
+            </Badge>
+          )}
         </div>
         <AddNewItemDialog
           type={value as 'projects' | 'areas' | 'resources' | 'archive'}
           onAdd={(type, newItem) => onAdd(newItem)}
         />
       </div>
+
+      {error && (
+        <div className="p-3 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive text-sm">
+          Error: {error}
+        </div>
+      )}
       <div
         className={`grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 min-h-[200px] p-4 rounded-lg border-2 border-dashed transition-colors ${
           dragOverType === value
@@ -154,7 +185,7 @@ export function ParaTabContent({
             onDragStart={(e, item, _, index) => handleDragStart(e, item, index)}
             onDragEnd={handleDragEnd}
             onDragOver={handleDragOver}
-            onDrop={(e, _, targetIndex) => handleDrop(e, targetIndex)}
+            onDrop={(e) => handleDrop(e)}
             onUpdate={(_, index, updatedItem) => updateItem(index, updatedItem)}
             onDelete={(_, index) => deleteItem(index)}
             onMove={() => {}} // This would need parent coordination for cross-group moves

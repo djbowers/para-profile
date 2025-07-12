@@ -1,41 +1,30 @@
-'use client';
-
-import type React from 'react';
-
 import { useState } from 'react';
 
 import { CharacterProfileHeader } from '@/components/CharacterProfileHeader';
 import { ParaSystemTabs } from '@/components/ParaSystemTabs';
-import type { ProgressItem } from '@/types/progress';
+import { useProgressItems } from '@/hooks/useProgressItems';
 
-interface ParaProfileProps {
-  initialProjects?: ProgressItem[];
-  initialAreas?: ProgressItem[];
-  initialResources?: ProgressItem[];
-  initialArchived?: ProgressItem[];
-}
-
-export function ParaProfile({
-  initialProjects = [],
-  initialAreas = [],
-  initialResources = [],
-  initialArchived = [],
-}: ParaProfileProps) {
+export function ParaProfile() {
   const [selectedTab, setSelectedTab] = useState('projects');
 
-  const [projects, setProjects] = useState<ProgressItem[]>(initialProjects);
-  const [areas, setAreas] = useState<ProgressItem[]>(initialAreas);
-  const [resources, setResources] = useState<ProgressItem[]>(initialResources);
-  const [archived, setArchived] = useState<ProgressItem[]>(initialArchived);
+  // Use the API hooks to get real data
+  const projectsHook = useProgressItems('project');
+  const areasHook = useProgressItems('area');
+  const resourcesHook = useProgressItems('resource');
+  const archivedHook = useProgressItems('archived');
 
-  const totalLevel = [...projects, ...areas, ...resources].reduce(
-    (sum, item) => sum + item.level,
-    0
-  );
-  const allItems = [...projects, ...areas, ...resources];
+  // Calculate totals from real data
+  const allActiveItems = [
+    ...projectsHook.items,
+    ...areasHook.items,
+    ...resourcesHook.items,
+  ];
+
+  const totalLevel = allActiveItems.reduce((sum, item) => sum + item.level, 0);
   const avgProgress =
-    allItems.length > 0
-      ? allItems.reduce((sum, item) => sum + item.progress, 0) / allItems.length
+    allActiveItems.length > 0
+      ? allActiveItems.reduce((sum, item) => sum + item.progress, 0) /
+        allActiveItems.length
       : 0;
 
   return (
@@ -43,20 +32,16 @@ export function ParaProfile({
       <CharacterProfileHeader
         totalLevel={totalLevel}
         avgProgress={avgProgress}
-        activeItemsCount={projects.length + areas.length}
+        activeItemsCount={projectsHook.items.length + areasHook.items.length}
       />
 
       <ParaSystemTabs
         selectedTab={selectedTab}
         onTabChange={setSelectedTab}
-        projects={projects}
-        areas={areas}
-        resources={resources}
-        archived={archived}
-        onProjectsChange={setProjects}
-        onAreasChange={setAreas}
-        onResourcesChange={setResources}
-        onArchivedChange={setArchived}
+        projectsHook={projectsHook}
+        areasHook={areasHook}
+        resourcesHook={resourcesHook}
+        archivedHook={archivedHook}
       />
     </div>
   );

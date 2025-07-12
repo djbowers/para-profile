@@ -6,6 +6,10 @@ export default defineConfig({
     environment: 'jsdom',
     setupFiles: ['vitest.setup.ts'],
     globals: true,
+    env: {
+      NEXT_PUBLIC_SUPABASE_URL: 'https://mock-supabase.supabase.co',
+      NEXT_PUBLIC_SUPABASE_ANON_KEY: 'mock-anon-key',
+    },
     coverage: {
       exclude: [
         '**/*.config.*',

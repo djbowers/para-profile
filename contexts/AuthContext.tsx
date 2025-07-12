@@ -9,7 +9,7 @@ interface AuthContextType {
   loading: boolean;
 }
 
-const SessionContext = createContext<AuthContextType>(undefined!);
+export const SessionContext = createContext<AuthContextType>(undefined!);
 
 export function useSession() {
   return useContext(SessionContext);

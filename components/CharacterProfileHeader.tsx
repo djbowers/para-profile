@@ -17,7 +17,7 @@ export function CharacterProfileHeader({
   activeItemsCount,
 }: CharacterProfileHeaderProps) {
   return (
-    <Card className="bg-card border-border">
+    <Card className="bg-card border-border" data-testid="character-profile-header">
       <CardContent className="p-6">
         <div className="flex items-center gap-6">
           <div className="relative">

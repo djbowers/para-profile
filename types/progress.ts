@@ -1,4 +1,5 @@
 import type React from 'react';
+import { Database } from './supabase';
 
 export interface ProgressItem {
   id?: string;
@@ -10,3 +11,6 @@ export interface ProgressItem {
   category: string;
   icon?: React.ReactNode;
 }
+
+export type DatabaseProgressItem =
+  Database['public']['Tables']['progress_items']['Row'];
