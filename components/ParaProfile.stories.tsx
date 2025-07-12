@@ -13,10 +13,6 @@ const meta = {
   component: ParaProfile,
   parameters: {
     layout: 'fullscreen',
-    // MSW handlers are configured globally in preview.ts
-    msw: {
-      handlers: [], // Use default handlers from preview.ts
-    },
   },
   tags: ['autodocs'],
 } satisfies Meta<typeof ParaProfile>;

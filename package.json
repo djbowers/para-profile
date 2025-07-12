@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
-    "storybook": "storybook dev -p 6006",
+    "storybook": "NEXT_PUBLIC_SUPABASE_URL=https://mock-supabase.supabase.co storybook dev -p 6006",
     "build-storybook": "storybook build",
     "test": "vitest",
     "test:ui": "vitest --ui",
