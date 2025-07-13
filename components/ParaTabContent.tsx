@@ -130,8 +130,8 @@ export function ParaTabContent({
 
   return (
     <div className="space-y-4">
-      <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-2">
+      <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+        <div className="flex items-center gap-2 flex-wrap">
           <div className={iconColor}>
             <Icon className="w-5 h-5" />
           </div>
