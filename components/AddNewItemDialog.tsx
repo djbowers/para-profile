@@ -74,7 +74,7 @@ export function AddNewItemDialog({ type, onAdd }: AddNewItemDialogProps) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button>
+        <Button className="w-full sm:w-fit">
           <Plus className="w-4 h-4 mr-2" />
           Add New {getDisplayName(type)}
         </Button>
